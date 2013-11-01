@@ -1,0 +1,290 @@
+<html>
+	<head>
+		<title>Armipotent HTML5 Alpha</title>
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script src="js/jquery.hotkeys.js"></script>
+		<style>body{background-color:navy;}</style>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var CANVAS_WIDTH 	= 640;
+			var CANVAS_HEIGHT 	= 480;
+
+			var canvasElement = $("<canvas width='" + CANVAS_WIDTH + "' height='" + CANVAS_HEIGHT + "'></canvas>");
+			var canvas = canvasElement.get(0).getContext("2d");
+			canvasElement.appendTo('body');
+
+			$(function() {
+			  window.keydown = {};
+			  
+			  function keyName(event) {
+			    return jQuery.hotkeys.specialKeys[event.which] ||
+			      String.fromCharCode(event.which).toLowerCase();
+			  }
+			  
+			  $(document).bind("keydown", function(event) {
+			    keydown[keyName(event)] = true;
+			  });
+			  
+			  $(document).bind("keyup", function(event) {
+			    keydown[keyName(event)] = false;
+			  });
+			});
+
+			setInterval(function() {
+				step();
+				draw();
+			}, 1000/60);
+
+			var gravity = 2;
+			var friction = 1;
+
+			var player = {
+				color: "#00A",
+				x: 220,
+				y: 270,
+				xv: 0,
+				yv: 0,
+				width: 32,
+				height: 32,
+				runSpeed: 6,
+				jumpHeight: 25,
+				collided: false,
+				jump: function() { //better handling all around needed
+					if(this.yv == 0){
+						this.yv -= this.jumpHeight;
+					}
+//				jump: function() {
+//					if(this.collided == true){
+//						this.yv -= this.jumpHeight;
+//					}				
+				},
+				draw: function() {
+					canvas.fillStyle = this.color;
+					canvas.fillRect(this.x, this.y, this.width, this.height);
+				}
+			}
+
+			function handleKeys() {
+				if (keydown.left) {
+					player.xv -= 2;
+					if(player.xv<-(player.runSpeed)){
+						player.xv = -(player.runSpeed);
+					}
+				}
+
+				if (keydown.right) {
+					player.xv += 2;
+					if(player.xv>player.runSpeed){
+						player.xv = player.runSpeed;
+					}
+				}
+
+				if (keydown.up) { //change this to Z or something, implement keydown flag
+					player.jump();
+				}
+			}
+
+			function wall(width, height, x, y, color, collision) {
+				this.width = width;
+				this.height = height;
+				this.x = x;
+				this.y = y;
+				this.color = color;
+				this.collision = collision;
+				this.draw = function() {
+					canvas.fillStyle = this.color;
+					canvas.fillRect(this.x, this.y, this.width, this.height);
+				};
+			}
+
+			var walls = new Array();
+
+			function initLevel() {
+				$.get("data/level1.csv", function(data){ //only actually covers walls atm
+					var levelData = data;
+					var lines = levelData.split("\n");
+
+					for (var i = lines.length - 1; i >= 0; i--) {
+						var a = lines[i].split(",");
+
+						a[0] = parseInt(a[0]);
+						a[1] = parseInt(a[1]);
+						a[2] = parseInt(a[2]);
+						a[3] = parseInt(a[3]);
+						a[5] = parseInt(a[5]);
+						walls[i] = new wall(a[0], a[1], a[2], a[3], a[4], a[5]);
+					};
+				});
+			}
+
+			initLevel();
+
+			function sweptAABB(b1, b2, normalx, normaly) {
+			    var xInvEntry, yInvEntry;
+			    var xInvExit, yInvExit;
+
+			    if (b1.xv > 0.0)
+			    {
+			        xInvEntry = b2.x - (b1.x + b1.width);
+			        xInvExit = (b2.x + b2.width) - b1.x;
+			    }
+			    else 
+			    {
+			        xInvEntry = (b2.x + b2.width) - b1.x;
+			        xInvExit = b2.x - (b1.x + b1.width);
+			    }
+
+			    if (b1.yv > 0.0)
+			    {
+			        yInvEntry = b2.y - (b1.y + b1.height);
+			        yInvExit = (b2.y + b2.height) - b1.y;
+			    }
+			    else
+			    {
+			        yInvEntry = (b2.y + b2.height) - b1.y;
+			        yInvExit = b2.y - (b1.y + b1.height);
+			    }
+
+			    var xEntry, yEntry;
+			    var xExit, yExit;
+
+			    if (b1.xv == 0.0)
+			    {
+			        xEntry = Number.NEGATIVE_INFINITY;
+			        xExit = Number.POSITIVE_INFINITY;
+			    }
+			    else
+			    {
+			        xEntry = xInvEntry / b1.xv;
+			        xExit = xInvExit / b1.xv;
+			    }
+
+			    if (b1.yv == 0.0)
+			    {
+			        yEntry = Number.NEGATIVE_INFINITY;
+			        yExit = Number.POSITIVE_INFINITY;
+			    }
+			    else
+			    {
+			        yEntry = yInvEntry / b1.yv;
+			        yExit = yInvExit / b1.yv;
+			    }
+
+				var entryTime = Math.max(xEntry, yEntry);
+				var exitTime = Math.min(xExit, yExit);
+
+				if (entryTime > exitTime || xEntry < 0.0 && yEntry < 0.0 || xEntry > 1.0 || yEntry > 1.0)
+				{
+					normalx = 0.0;
+					normaly = 0.0;
+					return 1.0;
+				}
+
+				else // if there was a collision
+			    {        		
+			        // calculate normal of collided surface
+			        if (xEntry > yEntry)
+			        {
+			            if (xInvEntry < 0.0)
+			            {
+			                normalx = 1.0;
+			                normaly = 0.0;
+			            }
+				        else
+			            {
+			                normalx = -1.0;
+			                normaly = 0.0;
+			            }
+			        }
+			        else
+			        {
+			            if (yInvEntry < 0.0)
+			            {
+			                normalx = 0.0;
+			                normaly = 1.0;
+			            }
+				        else
+			            {
+			                normalx = 0.0;
+					        normaly = -1.0;
+			            }
+			        }
+
+			        // return the time of collision
+			        return entryTime;
+			    }
+			}
+
+			function box(x, y, width, height, xv, yv){
+				var x, y;
+				var width, height;
+				var xv, yv;
+			}
+
+			function getSweptBroadphaseBox(b){
+				var broadphasebox = new box();
+				broadphasebox.x = b.xv > 0 ? b.x : b.x + b.xv;
+				broadphasebox.y = b.yv > 0 ? b.y : b.y + b.yv;
+				broadphasebox.width = b.xv > 0 ? b.xv + b.width : b.width - b.xv;
+				broadphasebox.height = b.yv > 0 ? b.yv + b.height : b.height - b.yv;
+
+				return broadphasebox;
+			}
+
+			function checkAABB (b1, b2){
+				return !(b1.x + b1.width < b2.x || b1.x > b2.x + b2.width || b1.y + b1.height < b2.y || b1.y > b2.y + b2.height);
+			}
+
+			function step() {
+				handleKeys();
+
+				player.yv+=gravity;
+				//player.y += player.yv;		
+				/*
+				if(player.y>CANVAS_HEIGHT-player.height) {
+					player.y = CANVAS_HEIGHT-player.height;
+					player.yv = 0;
+				}
+				*/
+
+				//var collided = false;
+				player.collided = false;
+
+				var broadphasebox = getSweptBroadphaseBox(player);
+				for (var i = walls.length - 1; i >= 0; i--) {
+					if (checkAABB(broadphasebox,walls[i])) {
+						var normalx, normaly;
+						var collisiontime = sweptAABB(player, walls[i], normalx, normaly);
+						var remainingtime = 1.0 - collisiontime;
+						if(remainingtime != 0) { //if there was a collision
+							player.x += player.xv * collisiontime;
+							player.y += player.yv * collisiontime;
+							//player.xv = 0;
+							player.yv = 0; //needs tweaking lol, maybe if i add a slide response itll work
+							player.collided = true; 
+						}
+					}
+				};
+
+				//if(!player.collided) {
+					player.x += player.xv;
+					player.y += player.yv;
+				//}
+
+				if(player.xv>0){player.xv-=friction;}else if(player.xv<0){player.xv+=friction;}
+
+			}
+
+			function draw() { //need to write a camera function
+				canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+				canvas.fillStyle="#FFFFFF";
+				canvas.fillRect(0,0,640,480);
+				player.draw();
+				for (var i = walls.length - 1; i >= 0; i--) {
+					walls[i].draw();
+				};
+			}
+		</script>
+	</body>
+</html>
