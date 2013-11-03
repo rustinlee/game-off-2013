@@ -281,7 +281,17 @@
 				player.x += player.xv;
 				player.y += player.yv;
 
-				if(player.xv>0){player.xv-=friction;}else if(player.xv<0){player.xv+=friction;}
+				if (player.xv>0) {
+					player.xv-=friction;
+					if (player.xv<0) {
+						player.xv = 0;
+					}
+				} else if (player.xv<0) {
+					player.xv+=friction;
+					if (player.xv>0) {
+						player.xv = 0;
+					}
+				}
 
 			}
 
