@@ -48,16 +48,18 @@
 				width: 32,
 				height: 32,
 				runSpeed: 6,
+				isJumping: false,
 				jumpHeight: 25,
 				collided: false,
+				collisionNormal: [0.0,0.0],
+				setNormal: function(x, y) {
+					this.collisionNormal[0] = x;
+					this.collisionNormal[1] = y;
+				},
 				jump: function() { //better handling all around needed
-					if(this.yv == 0){
+					if(this.collided && this.collisionNormal[1] == -1){
 						this.yv -= this.jumpHeight;
 					}
-//				jump: function() {
-//					if(this.collided == true){
-//						this.yv -= this.jumpHeight;
-//					}				
 				},
 				draw: function() {
 					canvas.fillStyle = this.color;
@@ -80,8 +82,13 @@
 					}
 				}
 
-				if (keydown.up) { //change this to Z or something, implement keydown flag
+				if (keydown.z && !player.isJumping) { //need to figure out how to bind keypress
 					player.jump();
+					player.isJumping = true;
+				}
+
+				if (!keydown.z) {
+					player.isJumping = false;
 				}
 			}
 
@@ -120,7 +127,7 @@
 
 			initLevel();
 
-			function sweptAABB(b1, b2, normalx, normaly) {
+			function sweptAABB(b1, b2) {
 			    var xInvEntry, yInvEntry;
 			    var xInvExit, yInvExit;
 
@@ -174,10 +181,14 @@
 				var entryTime = Math.max(xEntry, yEntry);
 				var exitTime = Math.min(xExit, yExit);
 
+				var normalx;
+				var normaly;
+
 				if (entryTime > exitTime || xEntry < 0.0 && yEntry < 0.0 || xEntry > 1.0 || yEntry > 1.0)
 				{
 					normalx = 0.0;
 					normaly = 0.0;
+					b1.setNormal(normalx, normaly);
 					return 1.0;
 				}
 
@@ -190,11 +201,13 @@
 			            {
 			                normalx = 1.0;
 			                normaly = 0.0;
+			                b1.setNormal(normalx, normaly);
 			            }
 				        else
 			            {
 			                normalx = -1.0;
 			                normaly = 0.0;
+			                b1.setNormal(normalx, normaly);
 			            }
 			        }
 			        else
@@ -203,11 +216,13 @@
 			            {
 			                normalx = 0.0;
 			                normaly = 1.0;
+			                b1.setNormal(normalx, normaly);
 			            }
 				        else
 			            {
 			                normalx = 0.0;
 					        normaly = -1.0;
+					        b1.setNormal(normalx, normaly);
 			            }
 			        }
 
@@ -239,38 +254,32 @@
 			function step() {
 				handleKeys();
 
-				player.yv+=gravity;
-				//player.y += player.yv;		
-				/*
-				if(player.y>CANVAS_HEIGHT-player.height) {
-					player.y = CANVAS_HEIGHT-player.height;
-					player.yv = 0;
-				}
-				*/
+				player.collided = false; //innocent until proven guilty
 
-				//var collided = false;
-				player.collided = false;
+				player.yv+=gravity;
+
+				if(player.yv > gravity && player.collided && player.collisionNormal[1] == -1) {
+					player.yv = gravity;
+				}
 
 				var broadphasebox = getSweptBroadphaseBox(player);
 				for (var i = walls.length - 1; i >= 0; i--) {
 					if (checkAABB(broadphasebox,walls[i])) {
-						var normalx, normaly;
-						var collisiontime = sweptAABB(player, walls[i], normalx, normaly);
+						var collisiontime = sweptAABB(player, walls[i]);
 						var remainingtime = 1.0 - collisiontime;
 						if(remainingtime != 0) { //if there was a collision
 							player.x += player.xv * collisiontime;
 							player.y += player.yv * collisiontime;
-							//player.xv = 0;
-							player.yv = 0; //needs tweaking lol, maybe if i add a slide response itll work
+							var dotprod = (player.xv * player.collisionNormal[1] + player.yv * player.collisionNormal[0]) * remainingtime;
+							player.xv = dotprod * player.collisionNormal[1];
+							player.yv = dotprod * player.collisionNormal[0];
 							player.collided = true; 
 						}
 					}
 				};
 
-				//if(!player.collided) {
-					player.x += player.xv;
-					player.y += player.yv;
-				//}
+				player.x += player.xv;
+				player.y += player.yv;
 
 				if(player.xv>0){player.xv-=friction;}else if(player.xv<0){player.xv+=friction;}
 
