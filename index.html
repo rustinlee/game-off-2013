@@ -63,33 +63,56 @@
 				},
 				draw: function() {
 					canvas.fillStyle = this.color;
-					canvas.fillRect(this.x, this.y, this.width, this.height);
+					canvas.fillRect(this.x - camera.x, this.y - camera.y, this.width, this.height);
 				}
 			}
 
+			var camera = {
+				x: 0,
+				y: 0,
+			}
+
 			function handleKeys() {
-				if (keydown.left) {
+				// player controls
+				if (keydown.a) {
 					player.xv -= 2;
 					if(player.xv<-(player.runSpeed)){
 						player.xv = -(player.runSpeed);
 					}
 				}
 
-				if (keydown.right) {
+				if (keydown.d) {
 					player.xv += 2;
 					if(player.xv>player.runSpeed){
 						player.xv = player.runSpeed;
 					}
 				}
 
-				if (keydown.z && !player.isJumping) { //need to figure out how to bind keypress
+				if (keydown.space && !player.isJumping) { //need to figure out how to bind keypress
 					player.jump();
 					player.isJumping = true;
 				}
 
-				if (!keydown.z) {
+				if (!keydown.space) {
 					player.isJumping = false;
 				}
+
+				// camera controls (debug)
+				if (keydown.up) {
+					camera.y -= 5;
+				}
+
+				if (keydown.down) {
+					camera.y += 5;
+				}
+
+				if (keydown.left) {
+					camera.x -= 5;
+				}
+
+				if (keydown.right) {
+					camera.x += 5;
+				}												
 			}
 
 			function wall(width, height, x, y, color, collision) {
@@ -101,7 +124,7 @@
 				this.collision = collision;
 				this.draw = function() {
 					canvas.fillStyle = this.color;
-					canvas.fillRect(this.x, this.y, this.width, this.height);
+					canvas.fillRect(this.x - camera.x, this.y - camera.y, this.width, this.height);
 				};
 			}
 
@@ -273,7 +296,7 @@
 							var dotprod = (player.xv * player.collisionNormal[1] + player.yv * player.collisionNormal[0]) * remainingtime;
 							player.xv = dotprod * player.collisionNormal[1];
 							player.yv = dotprod * player.collisionNormal[0];
-							player.collided = true; 
+							player.collided = true;
 						}
 					}
 				};
