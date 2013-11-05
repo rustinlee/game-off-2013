@@ -39,6 +39,17 @@
 			var gravity = 2;
 			var friction = 1;
 
+			
+			function entity() {
+			}
+
+			entity.prototype = {
+				draw: function() {
+					canvas.fillStyle = this.color;
+					canvas.fillRect(this.x - camera.x, this.y - camera.y, this.width, this.height);
+				}
+			}
+
 			var player = {
 				color: "#00A",
 				x: 220,
@@ -122,11 +133,9 @@
 				this.y = y;
 				this.color = color;
 				this.collision = collision;
-				this.draw = function() {
-					canvas.fillStyle = this.color;
-					canvas.fillRect(this.x - camera.x, this.y - camera.y, this.width, this.height);
-				};
 			}
+
+			wall.prototype = new entity();
 
 			var walls = new Array();
 
