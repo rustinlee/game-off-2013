@@ -152,8 +152,6 @@
 
 			creatures = new Array();
 
-			creatures[0] = new creature(460, 30, 64, 64, "#FF5A00", 15);
-
 			player = new creature(220, 270, 32, 32, "#00A", 100);			
 
 			player.fire = function() {
@@ -277,19 +275,14 @@
 			var walls = new Array();
 
 			function initLevel() {
-				$.get("data/level1.csv", function(data){ //only actually covers walls atm
-					var levelData = data;
-					var lines = levelData.split("\n");
-
-					for (var i = lines.length - 1; i >= 0; i--) {
-						var a = lines[i].split(",");
-
-						a[0] = parseInt(a[0]);
-						a[1] = parseInt(a[1]);
-						a[2] = parseInt(a[2]);
-						a[3] = parseInt(a[3]);
-						a[5] = parseInt(a[5]);
-						walls[i] = new wall(a[0], a[1], a[2], a[3], a[4], a[5]);
+				$.getJSON("data/levels/level1.json", function(data){
+					walls = data.walls;
+					for (var i = walls.length - 1; i >= 0; i--) {
+						walls[i] = new wall(walls[i].width, walls[i].height, walls[i].x, walls[i].y, walls[i].color, walls[i].collision);
+					};
+					creatures = data.enemies;
+					for (var i = creatures.length - 1; i >= 0; i--) {
+						creatures[i] = new creature(creatures[i].x, creatures[i].y, creatures[i].width, creatures[i].height, creatures[i].color, creatures[i].maxHP);
 					};
 				});
 			}
