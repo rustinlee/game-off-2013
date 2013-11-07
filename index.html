@@ -94,7 +94,44 @@
 				this.collided = false;
 				this.collisionNormal = [0.0,0.0];
 				this.step = function() {
+					this.collided = false; //innocent until proven guilty
 
+					this.yv+=gravity;
+
+					if(this.yv > gravity && this.collided && this.collisionNormal[1] == -1) {
+						this.yv = gravity;
+					}
+
+					var broadphasebox = getSweptBroadphaseBox(this);
+					for (var i = walls.length - 1; i >= 0; i--) {
+						if (checkAABB(broadphasebox,walls[i])) {
+							var collisiontime = sweptAABB(this, walls[i]);
+							var remainingtime = 1.0 - collisiontime;
+							if(remainingtime != 0) { //if there was a collision
+								this.x += this.xv * collisiontime;
+								this.y += this.yv * collisiontime;
+								var dotprod = (this.xv * this.collisionNormal[1] + this.yv * this.collisionNormal[0]) * remainingtime;
+								this.xv = dotprod * this.collisionNormal[1];
+								this.yv = dotprod * this.collisionNormal[0];
+								this.collided = true;
+							}
+						}
+					};
+
+					this.x += this.xv;
+					this.y += this.yv;
+
+					if (this.xv>0) {
+						this.xv-=friction;
+						if (this.xv<0) {
+							this.xv = 0;
+						}
+					} else if (this.xv<0) {
+						this.xv+=friction;
+						if (this.xv>0) {
+							this.xv = 0;
+						}
+					}
 				};
 				this.setNormal = function(x, y) {
 					this.collisionNormal[0] = x;
@@ -108,6 +145,10 @@
 			}
 
 			creature.prototype = new entity();
+
+			creatures = new Array();
+
+			creatures[0] = new creature(460, 30, 64, 64, "#FF5A00", 15);
 
 			player = new creature(220, 270, 32, 32, "#00A", 100);			
 
@@ -361,44 +402,7 @@
 				handleKeys();
 				handleMouse();
 
-				player.collided = false; //innocent until proven guilty
-
-				player.yv+=gravity;
-
-				if(player.yv > gravity && player.collided && player.collisionNormal[1] == -1) {
-					player.yv = gravity;
-				}
-
-				var broadphasebox = getSweptBroadphaseBox(player);
-				for (var i = walls.length - 1; i >= 0; i--) {
-					if (checkAABB(broadphasebox,walls[i])) {
-						var collisiontime = sweptAABB(player, walls[i]);
-						var remainingtime = 1.0 - collisiontime;
-						if(remainingtime != 0) { //if there was a collision
-							player.x += player.xv * collisiontime;
-							player.y += player.yv * collisiontime;
-							var dotprod = (player.xv * player.collisionNormal[1] + player.yv * player.collisionNormal[0]) * remainingtime;
-							player.xv = dotprod * player.collisionNormal[1];
-							player.yv = dotprod * player.collisionNormal[0];
-							player.collided = true;
-						}
-					}
-				};
-
-				player.x += player.xv;
-				player.y += player.yv;
-
-				if (player.xv>0) {
-					player.xv-=friction;
-					if (player.xv<0) {
-						player.xv = 0;
-					}
-				} else if (player.xv<0) {
-					player.xv+=friction;
-					if (player.xv>0) {
-						player.xv = 0;
-					}
-				}
+				player.step();
 
 				for (var i = projectiles.length - 1; i >= 0; i--) {
 					projectiles[i].step();
@@ -407,6 +411,10 @@
 				projectiles = projectiles.filter(function(projectile) {
 					return projectile.alive;
 				});
+
+				for (var i = creatures.length - 1; i >= 0; i--) {
+					creatures[i].step();
+				};
 			}
 
 			function draw() { //need to write a camera function
@@ -419,6 +427,9 @@
 				};
 				for (var i = projectiles.length - 1; i >= 0; i--) {
 					projectiles[i].draw();
+				};
+				for (var i = creatures.length - 1; i >= 0; i--) {
+					creatures[i].draw();
 				};
 			}
 		</script>
