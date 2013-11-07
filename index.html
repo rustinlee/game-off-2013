@@ -132,6 +132,10 @@
 							this.xv = 0;
 						}
 					}
+
+					if (this.HP <= 0) {
+						this.alive = false;
+					}
 				};
 				this.setNormal = function(x, y) {
 					this.collisionNormal[0] = x;
@@ -171,15 +175,33 @@
 				this.width = 2;
 				this.height = 2;
 				this.color = "#00A";
+				this.damage = 1;
+				this.penetrating = false;
 				this.ttl = 300;
 				this.alive = true;
 				this.step = function() {
 					this.x += this.xv;
 					this.y += this.yv;
+
 					this.ttl -= 1;
 					if(this.ttl <= 0) {
 						this.alive = false;
 					}
+
+					for (var i = walls.length - 1; i >= 0; i--) {
+						if(checkAABB(this,walls[i])){
+							this.alive = false;
+						}
+					};
+
+					for (var i = creatures.length - 1; i >= 0; i--) {
+						if(checkAABB(this,creatures[i])){
+							creatures[i].HP -= this.damage;
+							if(!this.penetrating) {
+								this.alive = false;
+							}
+						}
+					};
 				};
 			}
 
@@ -415,6 +437,10 @@
 				for (var i = creatures.length - 1; i >= 0; i--) {
 					creatures[i].step();
 				};
+
+				creatures = creatures.filter(function(creature) {
+					return creature.alive;
+				});
 			}
 
 			function draw() { //need to write a camera function
