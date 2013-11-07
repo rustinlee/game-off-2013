@@ -76,6 +76,52 @@
 				}
 			}
 
+			function creature(x, y, width, height, color, maxHP) {
+				this.x = x;
+				this.y = y;
+				this.xv = 0;
+				this.yv = 0;
+				this.width = width; //sprites will define these
+				this.height = height; //
+				this.color = color; //
+				this.maxHP = maxHP;
+				this.HP = this.maxHP;
+				this.runSpeed = 6;
+				this.isJumping = false;
+				this.jumpHeight = 25;
+				this.firePower = 1;
+				this.alive = true;
+				this.collided = false;
+				this.collisionNormal = [0.0,0.0];
+				this.step = function() {
+
+				};
+				this.setNormal = function(x, y) {
+					this.collisionNormal[0] = x;
+					this.collisionNormal[1] = y;
+				};
+				this.jump = function() { //better handling all around needed
+					if(this.collided && this.collisionNormal[1] == -1){
+						this.yv -= this.jumpHeight;
+					}
+				};
+			}
+
+			creature.prototype = new entity();
+
+			player = new creature(220, 270, 32, 32, "#00A", 100);			
+
+			player.fire = function() {
+				var radx = currentMousePos.x - (this.x+this.width/2);
+				var rady = (currentMousePos.y - (this.y+this.height/2))*-1;
+				var angle = Math.atan(rady/radx)/(Math.PI/180);
+			    if (radx <0) {
+			        angle += 180;
+			    }
+			    angle = angle*-1;			
+				projectiles.push(new projectile(this.x + this.width/2, this.y + this.height/2, Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower));
+			};
+
 			function projectile(x, y, xv, yv) {
 				this.x = x;
 				this.y = y;
@@ -99,45 +145,6 @@
 			projectile.prototype = new entity();
 
 			var projectiles = new Array();
-
-			var player = {
-				color: "#00A",
-				x: 220,
-				y: 270,
-				xv: 0,
-				yv: 0,
-				width: 32,
-				height: 32,
-				runSpeed: 6,
-				isJumping: false,
-				jumpHeight: 25,
-				firePower: 1,
-				collided: false,
-				collisionNormal: [0.0,0.0],
-				setNormal: function(x, y) {
-					this.collisionNormal[0] = x;
-					this.collisionNormal[1] = y;
-				},
-				jump: function() { //better handling all around needed
-					if(this.collided && this.collisionNormal[1] == -1){
-						this.yv -= this.jumpHeight;
-					}
-				},
-				fire: function() {
-					var radx = currentMousePos.x - (this.x+this.width/2);
-					var rady = (currentMousePos.y - (this.y+this.height/2))*-1;
-					var angle = Math.atan(rady/radx)/(Math.PI/180);
-				    if (radx <0) {
-				        angle += 180;
-				    }
-				    angle = angle*-1;			
-					projectiles.push(new projectile(this.x + this.width/2, this.y + this.height/2, Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower));
-				},
-				draw: function() {
-					canvas.fillStyle = this.color;
-					canvas.fillRect(this.x - camera.x, this.y - camera.y, this.width, this.height);
-				}
-			}
 
 			var camera = {
 				x: 0,
