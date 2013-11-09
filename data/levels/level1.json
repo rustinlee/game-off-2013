@@ -1,4 +1,9 @@
 {
+	"startPosition": {
+		"x":220,
+		"y":270
+	},
+
 	"walls": [
 		{"width":300,"height":30,"x":450,"y":275,"color":"#FF0000","collision":1},
 		{"width":400,"height":30,"x":20,"y":375,"color":"#FF0000","collision":1},
