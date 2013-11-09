@@ -162,8 +162,8 @@
 
 			player.fire = function() {
 				if(this.sinceFired >= this.fireDelay){
-					var radx = currentMousePos.x - (this.x+this.width/2);
-					var rady = (currentMousePos.y - (this.y+this.height/2))*-1;
+					var radx = (currentMousePos.x + camera.x) - (this.x+this.width/2);
+					var rady = ((currentMousePos.y + camera.y) - (this.y+this.height/2))*-1;
 					var angle = Math.atan(rady/radx)/(Math.PI/180);
 				    if (radx <0) {
 				        angle += 180;
