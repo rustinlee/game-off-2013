@@ -138,10 +138,14 @@
 					}
 
 					if (this.HP <= 0 || this.y > pitThreshold) {
-						this.alive = false;
+						this.alive = false; //mark for removal from array
+						this.die(); //perform death function
 					}
 
 					this.sinceFired += 1;
+				};
+				this.die = function() {
+					//once I make an enemy class this will award XP 
 				};
 				this.setNormal = function(x, y) {
 					this.collisionNormal[0] = x;
@@ -174,6 +178,14 @@
 					this.sinceFired = 0;
 				}
 			};
+
+			player.die = function() {
+				this.x = this.checkpointX;
+				this.y = this.checkpointY;
+
+				this.alive = true;
+				//more consequences for death soon
+			}
 
 			function projectile(x, y, xv, yv) {
 				this.x = x;
@@ -341,8 +353,8 @@
 					for (var i = creatures.length - 1; i >= 0; i--) {
 						creatures[i] = new creature(creatures[i].x, creatures[i].y, creatures[i].width, creatures[i].height, creatures[i].color, creatures[i].maxHP);
 					};
-					player.x = data.startPosition.x;
-					player.y = data.startPosition.y;
+					player.checkpointX = player.x = data.startPosition.x;
+					player.checkpointY = player.y = data.startPosition.y;
 
 					var tmp;
 					pitThreshold = Number.NEGATIVE_INFINITY;
