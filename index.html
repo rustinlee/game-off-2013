@@ -65,6 +65,7 @@
 
 			var gravity = 2;
 			var friction = 1;
+			var pitThreshold = Number.POSITIVE_INFINITY;
 			
 			function entity() {
 			}
@@ -136,7 +137,7 @@
 						}
 					}
 
-					if (this.HP <= 0) {
+					if (this.HP <= 0 || this.y > pitThreshold) {
 						this.alive = false;
 					}
 
@@ -342,6 +343,14 @@
 					};
 					player.x = data.startPosition.x;
 					player.y = data.startPosition.y;
+
+					var tmp;
+					pitThreshold = Number.NEGATIVE_INFINITY;
+					for (var i = walls.length - 1; i >= 0; i--) {
+						tmp = walls[i].y;
+						if (tmp > pitThreshold) pitThreshold = tmp;
+					};
+					pitThreshold += 500; //threshold after which to consider the player to have fallen into a pit
 				});
 			}
 
