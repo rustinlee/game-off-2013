@@ -182,6 +182,8 @@
 			player.die = function() {
 				this.x = this.checkpointX;
 				this.y = this.checkpointY;
+				this.xv = 0;
+				this.yv = 0;
 
 				this.alive = true;
 				//more consequences for death soon
