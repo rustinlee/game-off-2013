@@ -21,5 +21,6 @@ player.die = function() {
 	this.yv = 0;
 
 	this.alive = true;
+	this.HP = this.maxHP;
 	//more consequences for death soon
 }
