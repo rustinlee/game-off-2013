@@ -156,7 +156,22 @@
 						this.yv -= this.jumpHeight;
 					}
 				};
-				//mobs need a fire function too
+				this.fire = function() { //firing needs to be its own module that the AI module will then pass parameters to
+					if(this.sinceFired >= this.fireDelay){
+						var radx = (player.x + camera.x) - (this.x+this.width/2);
+						var rady = ((player.y + camera.y) - (this.y+this.height/2))*-1;
+						var angle = Math.atan(rady/radx)/(Math.PI/180);
+					    if (radx <0) {
+					        angle += 180;
+					    }
+					    angle = angle*-1;			
+						projectiles.push(new projectile(this.x + this.width/2, this.y + this.height/2, Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, false));
+						this.sinceFired = 0;
+					}
+				}
+				this.AI = function() { //going to write different modules for each type of enemy
+					this.fire();
+				}
 			}
 
 			creature.prototype = new entity();
@@ -174,7 +189,7 @@
 				        angle += 180;
 				    }
 				    angle = angle*-1;			
-					projectiles.push(new projectile(this.x + this.width/2, this.y + this.height/2, Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower));
+					projectiles.push(new projectile(this.x + this.width/2, this.y + this.height/2, Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, true));
 					this.sinceFired = 0;
 				}
 			};
@@ -189,7 +204,7 @@
 				//more consequences for death soon
 			}
 
-			function projectile(x, y, xv, yv) {
+			function projectile(x, y, xv, yv, friendly) {
 				this.x = x;
 				this.y = y;
 				this.xv = xv;
@@ -197,6 +212,7 @@
 				this.width = 4; //these should be defined by the object that's firing
 				this.height = 4; //
 				this.color = "#00A";
+				this.friendly = friendly;
 				this.damage = 1;
 				this.penetrating = false;
 				this.ttl = 300;
@@ -216,14 +232,21 @@
 						}
 					};
 
-					for (var i = creatures.length - 1; i >= 0; i--) {
-						if(checkAABB(this,creatures[i])){
-							creatures[i].HP -= this.damage;
-							if(!this.penetrating) {
-								this.alive = false;
+					if(this.friendly) {
+						for (var i = creatures.length - 1; i >= 0; i--) {
+							if(checkAABB(this,creatures[i])){
+								creatures[i].HP -= this.damage;
+								if(!this.penetrating) {
+									this.alive = false;
+								}
 							}
+						};
+					} else {
+						if(checkAABB(this,player)){
+							player.HP -= this.damage;
+							this.alive = false;
 						}
-					};
+					}
 				};
 			}
 
@@ -509,6 +532,7 @@
 				});
 
 				for (var i = creatures.length - 1; i >= 0; i--) {
+					creatures[i].AI();
 					creatures[i].step();
 				};
 
