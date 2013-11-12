@@ -1,14 +1,20 @@
-setInterval(function() {
-	step();
-	draw();
-}, 1000/60);
-
 var gravity = 2;
 var friction = 1;
 
 var pitThreshold = Number.POSITIVE_INFINITY;
 
-initLevel();
+function init() {
+	initLevel();
+
+	var shape = new createjs.Shape();
+	shape.graphics.beginFill("#FFFFFF").drawRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+	stage.addChild(shape);
+
+	setInterval(function() {
+		step();
+		draw();
+	}, 1000/60);
+}
 
 function step() {
 	handleKeys();
@@ -18,6 +24,9 @@ function step() {
 
 	for (var i = projectiles.length - 1; i >= 0; i--) {
 		projectiles[i].step();
+		if(!projectiles[i].alive){
+			stage.removeChild(projectiles[i].sprite);
+		}
 	};
 
 	projectiles = projectiles.filter(function(projectile) {
@@ -34,3 +43,17 @@ function step() {
 	});
 }
 
+function handleComplete() {
+	playerSprite = new createjs.Bitmap(queue.getResult("playerSprite"));
+	basicSprite = new createjs.Bitmap(queue.getResult("basicSprite"));
+	tileSheet = queue.getResult("tileSheet");
+	wallSprites = new createjs.SpriteSheet({images:[tileSheet],frames:{width:32,height:32}});
+	projectileSheet = new createjs.SpriteSheet({images:[queue.getResult("throwing1")],frames:{width:16,height:16}});
+	init();
+}
+
+var queue = new createjs.LoadQueue();
+queue.addEventListener("complete", handleComplete);
+$.getJSON("data/manifest.json", function(data){
+	queue.loadManifest(data);
+});

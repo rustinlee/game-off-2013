@@ -3,9 +3,11 @@ function projectile(x, y, xv, yv, friendly) {
 	this.y = y;
 	this.xv = xv;
 	this.yv = yv;
-	this.width = 4; //these should be defined by the object that's firing
-	this.height = 4; //
-	this.color = "#00A";
+	this.sprite = new createjs.Sprite(projectileSheet);
+	this.width = this.sprite.spriteSheet._frameWidth;
+	this.height = this.sprite.spriteSheet._frameHeight;
+	//this.width = 4; //these should be defined by the object that's firing
+	//this.height = 4; //
 	this.friendly = friendly;
 	this.damage = 1;
 	this.penetrating = false;
@@ -14,6 +16,9 @@ function projectile(x, y, xv, yv, friendly) {
 	this.step = function() {
 		this.x += this.xv;
 		this.y += this.yv;
+
+		this.sprite.x = this.x;
+		this.sprite.y = this.y;
 
 		this.ttl -= 1;
 		if(this.ttl <= 0) {

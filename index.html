@@ -2,6 +2,7 @@
 	<head>
 		<title>Armipotent HTML5 Alpha</title>
 		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script src="http://code.createjs.com/createjs-2013.09.25.min.js"></script>
 		<script src="js/jquery.hotkeys.js"></script>
 
 		<script src="js/input.js">></script>
@@ -28,9 +29,11 @@
 			var CANVAS_WIDTH 	= 640;
 			var CANVAS_HEIGHT 	= 480;
 
-			var canvasElement = $("<canvas width='" + CANVAS_WIDTH + "' height='" + CANVAS_HEIGHT + "'></canvas>");
+			var canvasElement = $("<canvas id='gameStage' width='" + CANVAS_WIDTH + "' height='" + CANVAS_HEIGHT + "'></canvas>");
 			var canvas = canvasElement.get(0).getContext("2d");
 			canvasElement.appendTo('#canvas');
+
+			var stage = new createjs.Stage("gameStage");
 
 			$('#canvas').mousemove(function(e) {
 			    var pos = findPos(this);

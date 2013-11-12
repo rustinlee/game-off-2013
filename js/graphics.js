@@ -41,18 +41,7 @@ var camera = {
 }
 
 function draw() {
-	canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-	canvas.fillStyle="#FFFFFF";
-	canvas.fillRect(0,0,640,480);
-	camera.step();
-	player.draw();
-	for (var i = walls.length - 1; i >= 0; i--) {
-		walls[i].draw();
-	};
-	for (var i = projectiles.length - 1; i >= 0; i--) {
-		projectiles[i].draw();
-	};
-	for (var i = creatures.length - 1; i >= 0; i--) {
-		creatures[i].draw();
-	};
+	//camera.step();
+
+	stage.update();
 }

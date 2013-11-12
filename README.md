@@ -10,3 +10,4 @@ An experimental platformer written in JavaScript using HTML5 Canvas.
 
 * [jQuery](http://jquery.com/)
 * [jquery.hotkeys](https://github.com/jeresig/jquery.hotkeys)
+* [CreateJS](http://www.createjs.com/)

@@ -8,12 +8,14 @@ entity.prototype = {
 	}
 }
 
-function wall(width, height, x, y, color, collision) {
-	this.width = width;
-	this.height = height;
+function wall(width, height, x, y, sprite, collision) {
+	this.sprite = sprite;
+	this.width = width*32;
+	this.height = height*32;
 	this.x = x;
 	this.y = y;
-	this.color = color;
+	this.sprite.x = this.x;
+	this.sprite.y = this.y;
 	this.collision = collision;
 }
 

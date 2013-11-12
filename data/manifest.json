@@ -1,0 +1,6 @@
+[
+	{"id":"playerSprite", "src":"img/player.png"},
+	{"id":"basicSprite", "src":"img/enemy.png"},
+	{"id":"tileSheet", "src":"img/tilesheet.png"},
+	{"id":"throwing1", "src":"img/shuriken.png"}
+]

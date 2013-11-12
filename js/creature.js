@@ -1,11 +1,16 @@
-function creature(x, y, width, height, color, maxHP) {
+function creature(x, y, maxHP, sprite) {
 	this.x = x;
 	this.y = y;
 	this.xv = 0;
 	this.yv = 0;
-	this.width = width; //sprites will define these
-	this.height = height; //
-	this.color = color; //
+	this.sprite = sprite;
+	if(sprite != null){
+		this.width = sprite.image.width;
+		this.height = sprite.image.height;
+	} else {
+		this.width = 0;
+		this.height = 0;
+	};
 	this.maxHP = maxHP;
 	this.HP = this.maxHP;
 	this.facing = 5; //numpad notation: 4 = left, 6 = right, 8 = up, 2 = down
@@ -46,6 +51,9 @@ function creature(x, y, width, height, color, maxHP) {
 		this.x += this.xv;
 		this.y += this.yv;
 
+		this.sprite.x = this.x;
+		this.sprite.y = this.y;
+
 		if (this.xv>0) {
 			this.xv-=friction;
 			if (this.xv<0) {
@@ -66,6 +74,7 @@ function creature(x, y, width, height, color, maxHP) {
 		this.sinceFired += 1;
 	};
 	this.die = function() {
+		stage.removeChild(this.sprite);
 		//once I make an enemy class this will award XP 
 	};
 	this.setNormal = function(x, y) {
@@ -86,7 +95,8 @@ function creature(x, y, width, height, color, maxHP) {
 		        angle += 180;
 		    }
 		    angle = angle*-1;			
-			projectiles.push(new projectile(this.x + this.width/2, this.y + this.height/2, Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, false));
+			projectiles.push(new projectile(this.x + this.width/2 - 8, this.y + this.height/2 - 8, Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, false));
+			stage.addChild(projectiles[projectiles.length-1].sprite);
 			this.sinceFired = 0;
 		}
 	}

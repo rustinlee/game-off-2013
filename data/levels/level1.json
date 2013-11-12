@@ -5,13 +5,13 @@
 	},
 
 	"walls": [
-		{"width":300,"height":30,"x":450,"y":275,"color":"#FF0000","collision":1},
-		{"width":400,"height":30,"x":20,"y":375,"color":"#FF0000","collision":1},
-		{"width":640,"height":30,"x":0,"y":450,"color":"#FF0000","collision":1},
-		{"width":30,"height":200,"x":40,"y":200,"color":"#FF0000","collision":1}
+		{"width":10,"height":1,"x":475,"y":225,"collision":1},
+		{"width":14,"height":1,"x":20,"y":325,"collision":1},
+		{"width":20,"height":1,"x":0,"y":450,"collision":1},
+		{"width":1,"height":4,"x":40,"y":200,"collision":1}
 	],
 
 	"enemies": [
-		{"x":460, "y":30, "width":64, "height":64, "color":"#FF5A00", "maxHP":15}
+		{"x":460, "y":30, "maxHP":15}
 	]
 }
