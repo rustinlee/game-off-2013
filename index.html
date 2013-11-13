@@ -21,13 +21,16 @@
 		<script src="js/graphics.js">></script>
 		<script src="js/main.js">></script>
 
-		<style>body{background-color:navy;}</style>
+		<style>
+		body{background-color:navy;}
+		#canvas{width:800px;height:600px;margin: 0px auto;border:1px solid black;}
+		</style>
 	</head>
 	<body>
 		<div id="canvas"></div>
 		<script type="text/javascript">
-			var CANVAS_WIDTH 	= 640;
-			var CANVAS_HEIGHT 	= 480;
+			var CANVAS_WIDTH 	= 800;
+			var CANVAS_HEIGHT 	= 600;
 
 			var canvasElement = $("<canvas id='gameStage' width='" + CANVAS_WIDTH + "' height='" + CANVAS_HEIGHT + "'></canvas>");
 			var canvas = canvasElement.get(0).getContext("2d");
