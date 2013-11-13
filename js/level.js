@@ -17,12 +17,12 @@ function initLevel() {
 			};			
 			walls[i].sprite = container;
 			walls[i] = new wall(walls[i].width, walls[i].height, walls[i].x, walls[i].y, walls[i].sprite, walls[i].collision);
-			stage.addChild(walls[i].sprite);
+			world.addChild(walls[i].sprite);
 		};
 		creatures = data.enemies;
 		for (var i = creatures.length - 1; i >= 0; i--) {
 			creatures[i] = new creature(creatures[i].x, creatures[i].y, creatures[i].maxHP, basicSprite);
-			stage.addChild(creatures[i].sprite);
+			world.addChild(creatures[i].sprite);
 		};
 
 		player = new playerClass(player.x, player.y, 100, playerSprite);
@@ -30,7 +30,7 @@ function initLevel() {
 		player.checkpointX = player.x = data.startPosition.x;
 		player.checkpointY = player.y = data.startPosition.y;
 
-		stage.addChild(player.sprite);
+		world.addChild(player.sprite);
 
 		var tmp;
 		pitThreshold = Number.NEGATIVE_INFINITY;

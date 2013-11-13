@@ -37,15 +37,15 @@ function playerClass(x, y, maxHP, sprite) {
 	};
 	this.fire = function() { //projectiles need to be centered completely
 		if(this.sinceFired >= this.fireDelay){
-			var radx = (currentMousePos.x + camera.x) - (this.x+this.width/2);
-			var rady = ((currentMousePos.y + camera.y) - (this.y+this.height/2))*-1;
+			var radx = (currentMousePos.x - world.x) - (this.x+this.width/2);
+			var rady = ((currentMousePos.y - world.y) - (this.y+this.height/2))*-1;
 			var angle = Math.atan(rady/radx)/(Math.PI/180);
 		    if (radx <0) {
 		        angle += 180;
 		    }
 		    angle = angle*-1;	
 			projectiles.push(new projectile(this.x + this.width/2 - 8, this.y + this.height/2 - 8, Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, true));
-			stage.addChild(projectiles[projectiles.length-1].sprite);
+			world.addChild(projectiles[projectiles.length-1].sprite);
 			this.sinceFired = 0;
 		}
 	}

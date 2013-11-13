@@ -4,11 +4,15 @@ var friction = 1;
 var pitThreshold = Number.POSITIVE_INFINITY;
 
 function init() {
+	world = new createjs.Container();
+
 	initLevel();
 
 	var shape = new createjs.Shape();
 	shape.graphics.beginFill("#FFFFFF").drawRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 	stage.addChild(shape);
+
+	stage.addChild(world);
 
 	setInterval(function() {
 		step();
@@ -25,7 +29,7 @@ function step() {
 	for (var i = projectiles.length - 1; i >= 0; i--) {
 		projectiles[i].step();
 		if(!projectiles[i].alive){
-			stage.removeChild(projectiles[i].sprite);
+			world.removeChild(projectiles[i].sprite);
 		}
 	};
 

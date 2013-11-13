@@ -74,7 +74,7 @@ function creature(x, y, maxHP, sprite) {
 		this.sinceFired += 1;
 	};
 	this.die = function() {
-		stage.removeChild(this.sprite);
+		world.removeChild(this.sprite);
 		//once I make an enemy class this will award XP 
 	};
 	this.setNormal = function(x, y) {
@@ -96,7 +96,7 @@ function creature(x, y, maxHP, sprite) {
 		    }
 		    angle = angle*-1;			
 			projectiles.push(new projectile(this.x + this.width/2 - 8, this.y + this.height/2 - 8, Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, false));
-			stage.addChild(projectiles[projectiles.length-1].sprite);
+			world.addChild(projectiles[projectiles.length-1].sprite);
 			this.sinceFired = 0;
 		}
 	}

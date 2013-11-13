@@ -73,19 +73,19 @@ function handleKeys() {
 
 	// camera controls (debug)
 	if (keydown.up) {
-		camera.y -= 5;
+		world.y += 5;
 	}
 
 	if (keydown.down) {
-		camera.y += 5;
+		world.y -= 5;
 	}
 
 	if (keydown.left) {
-		camera.x -= 5;
+		world.x += 5;
 	}
 
 	if (keydown.right) {
-		camera.x += 5;
+		world.x -= 5;
 	}												
 }
 
