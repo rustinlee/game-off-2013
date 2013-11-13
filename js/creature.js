@@ -51,6 +51,9 @@ function creature(x, y, maxHP, sprite) {
 		this.x += this.xv;
 		this.y += this.yv;
 
+		this.x = Math.round(this.x);
+		this.y = Math.round(this.y);
+
 		this.sprite.x = this.x;
 		this.sprite.y = this.y;
 
