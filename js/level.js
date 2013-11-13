@@ -8,6 +8,12 @@ function initLevel() {
 				spriteToAdd.gotoAndStop(Math.floor(Math.random()*3));
 				spriteToAdd.x = ii * 32;
 				container.addChild(spriteToAdd);
+
+				var spriteToAdd = new createjs.Sprite(wallSprites);
+				spriteToAdd.gotoAndStop(Math.floor(Math.random()*5)+8);
+				spriteToAdd.x = ii * 32;
+				spriteToAdd.y = walls[i].height * 32;
+				container.addChild(spriteToAdd);
 			};
 			for (var ii = walls[i].height - 1; ii >= 0; ii--) {
 				var spriteToAdd = new createjs.Sprite(wallSprites);
