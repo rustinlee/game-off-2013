@@ -48,11 +48,13 @@ function step() {
 }
 
 function handleComplete() {
-	playerSprite = new createjs.Bitmap(queue.getResult("playerSprite"));
+	playerSheet = new createjs.SpriteSheet({images:[queue.getResult("playerSprite")],frames:{width:15,height:46}});
+	playerSprite = new createjs.Sprite(playerSheet);
 	basicSprite = new createjs.Bitmap(queue.getResult("basicSprite"));
 	tileSheet = queue.getResult("tileSheet");
 	wallSprites = new createjs.SpriteSheet({images:[tileSheet],frames:{width:32,height:32}});
 	projectileSheet = new createjs.SpriteSheet({images:[queue.getResult("throwing1")],frames:{width:16,height:16}});
+	turretSheet = new createjs.SpriteSheet({images:[queue.getResult("turretSprite")],frames:[[0,0,20,14,0,10,11],[20,0,4,17,0,2,17]]});
 	init();
 }
 

@@ -27,7 +27,9 @@ function initLevel() {
 		}
 		creatures = data.enemies;
 		for (var i = creatures.length - 1; i >= 0; i--) {
-			creatures[i] = new Creature(creatures[i].x, creatures[i].y, creatures[i].maxHP, basicSprite);
+			//creatures[i] = new Creature(creatures[i].x, creatures[i].y, creatures[i].maxHP, basicSprite);
+			//world.addChild(creatures[i].sprite);
+			creatures[i] = createEnemy(creatures[i].x, creatures[i].y, creatures[i].facing, creatures[i].type);
 			world.addChild(creatures[i].sprite);
 		}
 

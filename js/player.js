@@ -5,8 +5,8 @@ function PlayerClass(x, y, maxHP, sprite) {
 	this.yv = 0;
 	this.sprite = sprite;
 	if(sprite !== null && sprite !== undefined){
-		this.width = sprite.image.width;
-		this.height = sprite.image.height;
+		this.width = this.sprite.spriteSheet._frameWidth;
+		this.height = this.sprite.spriteSheet._frameHeight;
 	} else {
 		this.width = 0;
 		this.height = 0;
@@ -51,4 +51,4 @@ function PlayerClass(x, y, maxHP, sprite) {
 
 PlayerClass.prototype = new Creature();
 
-player = new PlayerClass(null, null, 100, null);
+var player = new PlayerClass(null, null, 100);

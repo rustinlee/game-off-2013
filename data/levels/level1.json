@@ -12,6 +12,6 @@
 	],
 
 	"enemies": [
-		{"x":460, "y":30, "maxHP":15}
+		{"x":72, "y":232, "facing":6, "type":"BulletTurret"}
 	]
 }
