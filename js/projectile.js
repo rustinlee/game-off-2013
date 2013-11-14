@@ -1,4 +1,4 @@
-function projectile(x, y, xv, yv, friendly) {
+function Projectile(x, y, xv, yv, friendly) {
 	this.x = x;
 	this.y = y;
 	this.xv = xv;
@@ -31,7 +31,7 @@ function projectile(x, y, xv, yv, friendly) {
 			if(checkAABB(this,walls[i])){
 				this.alive = false;
 			}
-		};
+		}
 
 		if(this.friendly) {
 			for (var i = creatures.length - 1; i >= 0; i--) {
@@ -41,7 +41,7 @@ function projectile(x, y, xv, yv, friendly) {
 						this.alive = false;
 					}
 				}
-			};
+			}
 		} else {
 			if(checkAABB(this,player)){
 				player.HP -= this.damage;
@@ -51,6 +51,6 @@ function projectile(x, y, xv, yv, friendly) {
 	};
 }
 
-projectile.prototype = new entity();
+Projectile.prototype = new Entity();
 
-var projectiles = new Array();
+var projectiles = [];

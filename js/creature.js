@@ -1,16 +1,16 @@
-function creature(x, y, maxHP, sprite) {
+function Creature(x, y, maxHP, sprite) {
 	this.x = x;
 	this.y = y;
 	this.xv = 0;
 	this.yv = 0;
 	this.sprite = sprite;
-	if(sprite != null){
+	if(sprite !== null && sprite !== undefined){
 		this.width = sprite.image.width;
 		this.height = sprite.image.height;
 	} else {
 		this.width = 0;
 		this.height = 0;
-	};
+	}
 	this.maxHP = maxHP;
 	this.HP = this.maxHP;
 	this.facing = 5; //numpad notation: 4 = left, 6 = right, 8 = up, 2 = down
@@ -37,7 +37,7 @@ function creature(x, y, maxHP, sprite) {
 			if (checkAABB(broadphasebox,walls[i])) {
 				var collisiontime = sweptAABB(this, walls[i]);
 				var remainingtime = 1.0 - collisiontime;
-				if(remainingtime != 0) { //if there was a collision
+				if(remainingtime !== 0) { //if there was a collision
 					this.x += this.xv * collisiontime;
 					this.y += this.yv * collisiontime;
 					var dotprod = (this.xv * this.collisionNormal[1] + this.yv * this.collisionNormal[0]) * remainingtime;
@@ -46,7 +46,7 @@ function creature(x, y, maxHP, sprite) {
 					this.collided = true;
 				}
 			}
-		};
+		}
 
 		this.x += this.xv;
 		this.y += this.yv;
@@ -94,20 +94,20 @@ function creature(x, y, maxHP, sprite) {
 			var radx = (player.x+player.width/2) - (this.x+this.width/2);
 			var rady = ((player.y+player.height/2) - (this.y+this.height/2))*-1;
 			var angle = Math.atan(rady/radx)/(Math.PI/180);
-		    if (radx <0) {
-		        angle += 180;
-		    }
-		    angle = angle*-1;			
-			projectiles.push(new projectile(this.x + this.width/2 - 8, this.y + this.height/2 - 8, Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, false));
+			if (radx <0) {
+				angle += 180;
+			}
+			angle = angle*-1;			
+			projectiles.push(new Projectile(this.x + this.width/2 - 8, this.y + this.height/2 - 8, Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, false));
 			world.addChild(projectiles[projectiles.length-1].sprite);
 			this.sinceFired = 0;
 		}
-	}
+	};
 	this.AI = function() { //going to write different modules for each type of enemy
 		this.fire();
-	}
+	};
 }
 
-creature.prototype = new entity();
+Creature.prototype = new Entity();
 
-creatures = new Array();
+creatures = [];

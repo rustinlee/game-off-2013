@@ -1,14 +1,14 @@
-function entity() {
+function Entity() {
 }
 
-entity.prototype = {
+Entity.prototype = {
 	draw: function() {
 		canvas.fillStyle = this.color;
 		canvas.fillRect(this.x - camera.x, this.y - camera.y, this.width, this.height);
 	}
-}
+};
 
-function wall(width, height, x, y, sprite, collision) {
+function Wall(width, height, x, y, sprite, collision) {
 	this.sprite = sprite;
 	this.width = width*32;
 	this.height = height*32;
@@ -19,6 +19,6 @@ function wall(width, height, x, y, sprite, collision) {
 	this.collision = collision;
 }
 
-wall.prototype = new entity();
+Wall.prototype = new Entity();
 
-var walls = new Array();
+var walls = [];

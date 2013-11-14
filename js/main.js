@@ -31,7 +31,7 @@ function step() {
 		if(!projectiles[i].alive){
 			world.removeChild(projectiles[i].sprite);
 		}
-	};
+	}
 
 	projectiles = projectiles.filter(function(projectile) {
 		return projectile.alive;
@@ -40,7 +40,7 @@ function step() {
 	for (var i = creatures.length - 1; i >= 0; i--) {
 		creatures[i].AI();
 		creatures[i].step();
-	};
+	}
 
 	creatures = creatures.filter(function(creature) {
 		return creature.alive;
@@ -57,7 +57,7 @@ function handleComplete() {
 }
 
 var queue = new createjs.LoadQueue();
-queue.addEventListener("complete", handleComplete);
 $.getJSON("data/manifest.json", function(data){
 	queue.loadManifest(data);
 });
+queue.addEventListener("complete", handleComplete);
