@@ -23,13 +23,28 @@ function Creature(x, y, maxHP, sprite) {
 	this.alive = true;
 	this.collided = false;
 	this.collisionNormal = [0.0,0.0];
+	this.groundRect = {
+		x: this.x+1,
+		y: this.y + this.height,
+		width: this.width-2,
+		height: 1
+	};
+	this.onGround = true;
 	this.step = function() {
 		this.collided = false; //innocent until proven guilty
+		this.onGround = false;
 
-		this.yv+=gravity;
+		this.groundRect.x = this.x + 1;
+		this.groundRect.y = this.y + this.height;
 
-		if(this.yv > gravity && this.collided && this.collisionNormal[1] == -1) {
-			this.yv = gravity;
+		for (var i = walls.length - 1; i >= 0; i--) {
+			if(checkAABB(this.groundRect,walls[i])){
+				this.onGround = true;
+			}
+		}
+
+		if(!this.onGround) {
+			this.yv += gravity;
 		}
 
 		var broadphasebox = getSweptBroadphaseBox(this);
@@ -85,7 +100,7 @@ function Creature(x, y, maxHP, sprite) {
 		this.collisionNormal[1] = y;
 	};
 	this.jump = function() { //better handling all around needed
-		if(this.collided && this.collisionNormal[1] == -1){
+		if(this.onGround){
 			this.yv -= this.jumpHeight;
 		}
 	};

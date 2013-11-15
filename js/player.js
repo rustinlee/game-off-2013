@@ -23,6 +23,13 @@ function PlayerClass(x, y, maxHP, sprite) {
 	this.alive = true;
 	this.collided = false;
 	this.collisionNormal = [0.0,0.0];
+	this.groundRect = {
+		x: this.x+1,
+		y: this.y + this.height,
+		width: this.width-2,
+		height: 1
+	};
+	this.onGround = true;	
 	this.die = function() {
 		this.x = this.checkpointX;
 		this.y = this.checkpointY;
