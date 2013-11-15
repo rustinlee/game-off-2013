@@ -14,6 +14,9 @@ function init() {
 
 	stage.addChild(world);
 
+	hud = new HeadsUpDisplay();
+	hud.init();	
+
 	setInterval(function() {
 		step();
 		draw();
@@ -45,6 +48,8 @@ function step() {
 	creatures = creatures.filter(function(creature) {
 		return creature.alive;
 	});
+
+	hud.step();
 }
 
 function handleComplete() {
