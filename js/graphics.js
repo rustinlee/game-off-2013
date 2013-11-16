@@ -1,33 +1,20 @@
 function updateCamera() {
-	var panSpeed = player.runSpeed * 1.5;
+	var panSpeedX = Math.abs(player.xv)*2;
+	var panSpeedY = 0;
 	switch(player.facing){
-		case 8:
-			var targetPos = ((player.y+player.height/2)-(CANVAS_HEIGHT*0.6))*-1;
-			world.y += panSpeed;
-			if(world.y > targetPos) {
-				world.y = targetPos;
-			}								
-			break;
-		case 2:
-			var targetPos = ((player.y+player.height/2)-(CANVAS_HEIGHT*0.4))*-1;
-			world.y -= panSpeed;
-			if(world.y < targetPos) {
-				world.y = targetPos;
-			}
-			break;
 		case 4:
 			var targetPos = ((player.x+player.width/2)-(CANVAS_WIDTH*0.6))*-1;
-			world.x += panSpeed;
+			world.x += panSpeedX;
 			if(world.x > targetPos) {
 				world.x = targetPos;
 			}
 			break;
 		case 6:
 			var targetPos = ((player.x+player.width/2)-(CANVAS_WIDTH*0.4))*-1;
-			world.x -= panSpeed;
+			world.x -= panSpeedX;
 			if(world.x < targetPos) {
 				world.x = targetPos;
-			}							
+			}
 			break;
 	}
 
@@ -38,7 +25,6 @@ function updateCamera() {
 	world.x = Math.round(world.x);
 	world.y = Math.round(world.y);
 }
-
 
 function draw() {
 	updateCamera();
