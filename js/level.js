@@ -33,7 +33,7 @@ function initLevel() {
 			world.addChild(creatures[i].sprite);
 		}
 
-		player = new PlayerClass(player.x, player.y, 100, playerSprite);
+		player = new PlayerClass(data.startPosition.x, data.startPosition.y, 100, playerSprite);
 
 		player.checkpointX = player.x = data.startPosition.x;
 		player.checkpointY = player.y = data.startPosition.y;
