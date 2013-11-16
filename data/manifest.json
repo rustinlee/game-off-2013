@@ -1,4 +1,5 @@
 [
+	{"id":"level1", "src":"data/levels/level1.json"},
 	{"id":"playerSprite", "src":"img/player.png"},
 	{"id":"basicSprite", "src":"img/enemy.png"},
 	{"id":"turretSprite", "src":"img/turret.png"},

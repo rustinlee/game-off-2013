@@ -53,6 +53,8 @@ function step() {
 }
 
 function handleComplete() {
+	level1 = queue.getResult("level1");
+
 	playerSheet = new createjs.SpriteSheet({images:[queue.getResult("playerSprite")],frames:{width:15,height:46}});
 	playerSprite = new createjs.Sprite(playerSheet);
 	basicSprite = new createjs.Bitmap(queue.getResult("basicSprite"));
