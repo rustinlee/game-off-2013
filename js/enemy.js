@@ -32,7 +32,7 @@ function Walker(x, y, facing){
 	};
 	this.onGround = true;	
 	this.fire = function(){
-		projectiles.push(new Projectile(this.x + this.width/2, this.y - this.gun.spriteSheet._frameHeight/2, this.firePower, 0, false));
+		projectiles.push(new Projectile(this.x + this.width/2, this.y - this.gun.spriteSheet._frameHeight, this.firePower, 0, false));
 		world.addChild(projectiles[projectiles.length-1].sprite);
 	}
 	this.AI = function(){
@@ -42,20 +42,22 @@ function Walker(x, y, facing){
 				this.xv = -(this.runSpeed);
 			}
 			this.sprite.scaleX = 1;
-			this.sprite.x = this.x;			
 		} else if(facing == 6){
 			this.xv += 2;
 			if(this.xv > this.runSpeed){
 				this.xv = this.runSpeed;
 			}
 			this.sprite.scaleX = -1;
-			this.sprite.x = this.x + this.width;
 		}
 
 		if(this.sinceFired >= this.fireDelay){
-			this.fire();
+			this.gun.gotoAndPlay("shoot");
 			this.sinceFired = 0;
-		}		
+		}
+
+		if(this.gun.currentAnimation == "shoot" && Math.round(this.gun.currentAnimationFrame*10)/10 == 4){
+			this.fire();
+		}
 	}
 }
 
