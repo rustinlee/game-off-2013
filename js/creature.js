@@ -69,7 +69,12 @@ function Creature(x, y, maxHP, sprite) {
 		this.x = Math.round(this.x);
 		this.y = Math.round(this.y);
 
-		this.sprite.x = this.x;
+		if(this.sprite.scaleX == -1){
+			this.sprite.x = this.x + this.width;
+		} else {
+			this.sprite.x = this.x;
+		}
+
 		this.sprite.y = this.y;
 
 		if (this.xv>0) {

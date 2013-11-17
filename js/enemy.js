@@ -1,5 +1,62 @@
 function Walker(x, y, facing){
+	this.x = x;
+	this.y = y;
+	this.xv = 0;
+	this.yv = 0;
+	this.facing = facing;
+	this.sprite = new createjs.Container;
+	this.base = new createjs.Sprite(walkerBaseSheet, "run");
+	this.gun = new createjs.Sprite(walkerGunSheet, "idle");
+	if(this.facing == 6){
+		this.sprite.scaleX = -1;
+	}	
+	this.sprite.addChild(this.gun, this.base);
+	this.width = this.base.spriteSheet._frameWidth;
+	this.height = this.base.spriteSheet._frameHeight;
+	this.sprite.x = this.x;
+	this.sprite.y = this.y;
+	this.maxHP = 10;
+	this.HP = this.maxHP;
+	this.runSpeed = 1;
+	this.firePower = 3;
+	this.fireDelay = 150;
+	this.sinceFired = this.fireDelay;
+	this.alive = true;
+	this.collided = false;
+	this.collisionNormal = [0.0,0.0];
+	this.groundRect = {
+		x: this.x+1,
+		y: this.y + this.height,
+		width: this.width-2,
+		height: 1
+	};
+	this.onGround = true;	
+	this.fire = function(){
+		projectiles.push(new Projectile(this.x + this.width/2, this.y - this.gun.spriteSheet._frameHeight/2, this.firePower, 0, false));
+		world.addChild(projectiles[projectiles.length-1].sprite);
+	}
+	this.AI = function(){
+		if(facing == 4){
+			this.xv -= 2;
+			if(this.xv < -(this.runSpeed)){
+				this.xv = -(this.runSpeed);
+			}
+			this.sprite.scaleX = 1;
+			this.sprite.x = this.x;			
+		} else if(facing == 6){
+			this.xv += 2;
+			if(this.xv > this.runSpeed){
+				this.xv = this.runSpeed;
+			}
+			this.sprite.scaleX = -1;
+			this.sprite.x = this.x + this.width;
+		}
 
+		if(this.sinceFired >= this.fireDelay){
+			this.fire();
+			this.sinceFired = 0;
+		}		
+	}
 }
 
 Walker.prototype = new Creature();
