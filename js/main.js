@@ -63,13 +63,16 @@ function handleComplete() {
 		frames: {width:18, height:13},
 		animations: {idle:[0], run:[1,6,true,0.2]}
 	});
-	createjs.SpriteSheetUtils.addFlippedFrames(walkerBaseSheet, true, false);	
 	walkerGunSheet = new createjs.SpriteSheet({
 		images: [queue.getResult("walkerGun")],
 		frames: {width:22, height:11, regX: 2, regY: 9},
 		animations: {idle:[0], shoot:[0,6,"idle",0.2]}
 	});
-	createjs.SpriteSheetUtils.addFlippedFrames(walkerGunSheet, true, false);
+	walkerProjectileSheet = new createjs.SpriteSheet({
+		images:[queue.getResult("walkerProjectile")],
+		frames:{width:7,height:6, regY:3},
+		animations: {flying:[0,4,true,0.2]}
+	});
 
 	tileSheet = queue.getResult("tileSheet");
 	wallSprites = new createjs.SpriteSheet({images:[tileSheet],frames:{width:32,height:32}});

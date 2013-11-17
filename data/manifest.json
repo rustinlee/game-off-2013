@@ -3,6 +3,7 @@
 	{"id":"playerSprite", "src":"img/player.png"},
 	{"id":"walkerBase", "src":"img/walker_base.png"},
 	{"id":"walkerGun", "src":"img/walker_gun.png"},
+	{"id":"walkerProjectile", "src":"img/walker_projectile.png"},
 	{"id":"turretSprite", "src":"img/turret.png"},
 	{"id":"tileSheet", "src":"img/tilesheet.png"},
 	{"id":"throwing1", "src":"img/shuriken.png"}

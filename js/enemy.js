@@ -30,9 +30,11 @@ function Walker(x, y, facing){
 		width: this.width-2,
 		height: 1
 	};
-	this.onGround = true;	
+	this.onGround = true;
 	this.fire = function(){
-		projectiles.push(new Projectile(this.x + this.width/2, this.y - this.gun.spriteSheet._frameHeight, this.firePower, 0, false));
+		this.projectileSprite = new createjs.Sprite(walkerProjectileSheet);
+		this.projectileSprite.gotoAndPlay("flying");
+		projectiles.push(new Projectile(this.x + this.width/2, this.y - this.gun.spriteSheet._frameHeight/2, this.firePower, 0, this.projectileSprite, false));
 		world.addChild(projectiles[projectiles.length-1].sprite);
 	}
 	this.AI = function(){
@@ -77,7 +79,7 @@ function Turret(){
 	};	
 	this.fire = function(angle){
 		if(this.sinceFired >= this.fireDelay){	
-			projectiles.push(new Projectile((this.x + this.width/2 - 8)+20*Math.cos(angle*Math.PI/180), (this.y + this.height/2 - 8)+20*Math.sin(angle*Math.PI/180), Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, false));
+			projectiles.push(new Projectile((this.x + this.width/2 - 8)+20*Math.cos(angle*Math.PI/180), (this.y + this.height/2 - 8)+20*Math.sin(angle*Math.PI/180), Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, this.projectileSprite, false));
 			world.addChild(projectiles[projectiles.length-1].sprite);
 			this.sinceFired = 0;
 		}

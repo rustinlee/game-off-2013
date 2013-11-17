@@ -49,7 +49,7 @@ function PlayerClass(x, y, maxHP, sprite) {
 				angle += 180;
 			}
 			angle = angle*-1;	
-			projectiles.push(new Projectile(this.x + this.width/2 - 8, this.y + this.height/2 - 8, Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, true));
+			projectiles.push(new Projectile(this.x + this.width/2 - 8, this.y + this.height/2 - 8, Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, this.projectileSprite, true));
 			world.addChild(projectiles[projectiles.length-1].sprite);
 			this.sinceFired = 0;
 		}

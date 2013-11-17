@@ -1,9 +1,12 @@
-function Projectile(x, y, xv, yv, friendly) {
+function Projectile(x, y, xv, yv, sprite, friendly) {
 	this.x = x;
 	this.y = y;
 	this.xv = xv;
 	this.yv = yv;
-	this.sprite = new createjs.Sprite(projectileSheet);
+	this.sprite = sprite;
+	if(sprite == undefined || sprite == null){
+		this.sprite = new createjs.Sprite(projectileSheet);
+	}
 	this.width = this.sprite.spriteSheet._frameWidth;
 	this.height = this.sprite.spriteSheet._frameHeight;
 	this.sprite.x = this.x;
