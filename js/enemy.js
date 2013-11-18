@@ -139,6 +139,69 @@ function BulletTurret(x, y, facing){
 BulletTurret.prototype = new Turret();
 
 function LaserTurret(x, y, facing){
+	this.x = x;
+	this.y = y;
+	this.sprite = new createjs.Container();
+	this.base = new createjs.Sprite(turretSheet, 0);
+	this.base.stop();
+	this.barrel = new createjs.Sprite(turretSheet, 1);
+	this.barrel.stop();
+	this.barrel.y = -3;
+	this.sprite.addChild(this.barrel, this.base);	
+	var cases = {
+		8: 0,
+		6: 90,
+		2: 180,
+		4: 270
+	};
+	if(cases[facing]){
+		this.sprite.rotation = cases[facing];
+	}
+	this.width = this.base.spriteSheet._frameWidth;
+	this.height = this.base.spriteSheet._frameHeight;
+	this.sprite.x = this.x;
+	this.sprite.y = this.y;
+	this.maxHP = 10;
+	this.HP = this.maxHP;
+	this.alive = true;
+	this.lockedOn = false;
+	this.sinceLockedOn = 0;
+	this.lockTime = 180;
+	this.laserLength = 30;
+	this.fire = function(angle){
+		projectiles.push(new Projectile((this.x + this.width/2 - 8)+20*Math.cos(angle*Math.PI/180), (this.y + this.height/2 - 8)+20*Math.sin(angle*Math.PI/180), Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, this.projectileSprite, false));
+		world.addChild(projectiles[projectiles.length-1].sprite);
+		//for (var i = 0; i < this.laserLength; i++) {
+			
+		//};
+	};	
+	this.AI = function() {
+		var radx = (player.x+player.width/2) - (this.x+this.width/2);
+		var rady = ((player.y+player.height/2) - (this.y+this.height/2))*-1;
+		var angle = Math.atan(rady/radx)/(Math.PI/180);
+		if (radx <0) {
+			angle += 180;
+		}
+		angle = angle*-1;
+		var withinBounds = (angle >= -60 && angle <= 60);
+		if(withinBounds) {
+			if(this.barrel.rotation > angle) {
+				this.barrel.rotation --;
+			} else if(this.barrel.rotation < angle) {
+				this.barrel.rotation ++;
+			}
+			this.sinceLockedOn ++;
+			if(this.sinceLockedOn >= this.lockTime){
+				this.fire(this.barrel.rotation);
+				this.sinceLockedOn = 0;
+			}
+		} else {
+			angle = 0;
+			this.barrel.rotation = angle;
+			this.lockedOn = false;
+			this.sinceLockedOn = 0;
+		}
+	};
 }
 
 LaserTurret.prototype = new Turret();
