@@ -13,6 +13,7 @@
 
 	"enemies": [
 		{"x":72, "y":232, "facing":6, "type":"BulletTurret"},
+		{"x":72, "y":264, "facing":6, "type":"LaserTurret"},
 		{"x":300, "y":232, "facing":6, "type":"Walker"}
 	]
 }

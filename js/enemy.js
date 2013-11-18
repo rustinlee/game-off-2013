@@ -92,13 +92,11 @@ function Turret(){
 			angle += 180;
 		}
 		angle = angle*-1;
-		if(angle >= -60 && angle <= 60) {
+		var withinBounds = (angle >= -60 && angle <= 60);
+		if(withinBounds) {
 			this.fire(angle);
-		} else if(angle < -60) {
+		} else {
 			//angle = -60;
-			angle = 0;
-		} else if(angle > 60) {
-			//angle = 60;
 			angle = 0;
 		}
 		this.barrel.rotation = angle;
@@ -141,11 +139,6 @@ function BulletTurret(x, y, facing){
 BulletTurret.prototype = new Turret();
 
 function LaserTurret(x, y, facing){
-	this.x = x;
-	this.y = y;
-	this.fireDelay = 30;
-	this.sinceFired = this.fireDelay;
-	this.alive = true;
 }
 
 LaserTurret.prototype = new Turret();
