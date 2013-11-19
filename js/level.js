@@ -1,5 +1,28 @@
 function initLevel() {
 //	$.getJSON("level1/levels/level1.json", function(level1){
+		background = level1.background;
+		for (var i = background.length - 1; i >= 0; i--) {
+			var container = new createjs.Container();
+			var imageID = background[i];
+			var image = new createjs.Bitmap(queue.getResult(imageID));
+			image.regY = image.image.height;
+			image.y = CANVAS_HEIGHT;
+
+			var numNeeded = Math.ceil(CANVAS_WIDTH/image.image.width) + 2;
+
+			for (var ii = 0; ii < numNeeded; ii++) {
+				var imageToAdd = image.clone();
+				imageToAdd.x = ii*imageToAdd.image.width;
+				container.addChild(imageToAdd);
+			};
+
+			parallax.images.push(container);
+		};
+
+		for (var i = 0; i < parallax.images.length; i++) {
+			stage.addChild(parallax.images[i]);
+		};
+
 		walls = level1.walls;
 		for (var i = walls.length - 1; i >= 0; i--) {
 			var container = new createjs.Container();

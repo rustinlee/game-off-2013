@@ -1,4 +1,11 @@
 {
+	"background": [
+		"night1",
+		"night2",
+		"night3",
+		"night4"
+	],
+
 	"startPosition": {
 		"x":220,
 		"y":270

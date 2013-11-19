@@ -1,5 +1,9 @@
 [
 	{"id":"level1", "src":"data/levels/level1.json"},
+	{"id":"night1", "src":"img/night1.png"},
+	{"id":"night2", "src":"img/night2.png"},
+	{"id":"night3", "src":"img/night3.png"},
+	{"id":"night4", "src":"img/night4.png"},
 	{"id":"playerSprite", "src":"img/player.png"},
 	{"id":"walkerBase", "src":"img/walker_base.png"},
 	{"id":"walkerGun", "src":"img/walker_gun.png"},
