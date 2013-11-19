@@ -1,4 +1,4 @@
-var gravity = 2;
+var gravity = 1;
 var friction = 1;
 
 var pitThreshold = Number.POSITIVE_INFINITY;

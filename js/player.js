@@ -16,7 +16,7 @@ function PlayerClass(x, y, maxHP, sprite) {
 	this.facing = 5; //numpad notation: 4 = left, 6 = right, 8 = up, 2 = down
 	this.runSpeed = 6;
 	this.isJumping = false;
-	this.jumpHeight = 25;
+	this.jumpHeight = 18;
 	this.firePower = 3;
 	this.fireDelay = 30;
 	this.sinceFired = this.fireDelay;
