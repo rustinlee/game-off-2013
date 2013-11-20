@@ -5,7 +5,7 @@ var parallax = {
 	images: [],
 	scroll: function(distance){
 		for (var i = this.images.length - 1; i >= 0; i--) {
-			this.images[i].x -= distance*(i*0.1+1);
+			this.images[i].x -= distance*(i*0.5+1)*0.1;
 			for (var ii = 0; ii < this.images[i].children.length; ii++) {
 				var offScreenLeft = (this.images[i].children[ii].x+this.images[i].children[ii].image.width*2+this.images[i].x < 0);
 				if(offScreenLeft){
