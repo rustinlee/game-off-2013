@@ -5,8 +5,10 @@ function initLevel() {
 			var container = new createjs.Container();
 			var imageID = background[i];
 			var image = new createjs.Bitmap(queue.getResult(imageID));
-			image.regY = image.image.height;
-			image.y = CANVAS_HEIGHT;
+			if(i != background.length -1){
+				image.regY = image.image.height;
+				image.y = CANVAS_HEIGHT;
+			}
 
 			var numNeeded = Math.ceil(CANVAS_WIDTH/image.image.width) + 2;
 

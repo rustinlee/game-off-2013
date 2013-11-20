@@ -6,10 +6,6 @@ var pitThreshold = Number.POSITIVE_INFINITY;
 function init() {
 	world = new createjs.Container();
 
-	var shape = new createjs.Shape();
-	shape.graphics.beginFill("#001829").drawRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-	stage.addChild(shape);	
-
 	initLevel();
 
 	stage.addChild(world);
