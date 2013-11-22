@@ -6,7 +6,7 @@ var pitThreshold = Number.POSITIVE_INFINITY;
 function init() {
 	world = new createjs.Container();
 
-	initLevel();
+	initLevel(level1);
 
 	stage.addChild(world);
 
