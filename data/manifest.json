@@ -15,6 +15,7 @@
 	{"id":"walkerProjectile", "src":"img/enemy/walker_projectile.png"},
 	{"id":"turretSprite", "src":"img/enemy/turret.png"},
 	{"id":"tileSheet", "src":"img/tilesheet.png"},
+	{"id":"defaultProjectile", "src":"img/enemy/default_projectile.png"},
 	{"id":"throwing1", "src":"img/weapon/throwing/dagger.png"},
 	{"id":"throwing2", "src":"img/weapon/throwing/dagger2.png"},
 	{"id":"throwing3", "src":"img/weapon/throwing/kunai.png"},

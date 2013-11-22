@@ -5,7 +5,7 @@ function Projectile(x, y, xv, yv, sprite, friendly) {
 	this.yv = yv;
 	this.sprite = sprite;
 	if(sprite == undefined || sprite == null){
-		this.sprite = new createjs.Sprite(projectileSheet);
+		this.sprite = new createjs.Sprite(defaultProjectile);
 	}
 	this.width = this.sprite.spriteSheet._frameWidth;
 	this.height = this.sprite.spriteSheet._frameHeight;
