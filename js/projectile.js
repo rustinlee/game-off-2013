@@ -1,10 +1,11 @@
-function Projectile(x, y, xv, yv, sprite, friendly) {
+function Projectile(x, y, xv, yv, spriteSheet, friendly) {
 	this.x = x;
 	this.y = y;
 	this.xv = xv;
 	this.yv = yv;
-	this.sprite = sprite;
-	if(sprite == undefined || sprite == null){
+	if(spriteSheet !== null && spriteSheet !== undefined){
+		this.sprite = new createjs.Sprite(spriteSheet);
+	} else {
 		this.sprite = new createjs.Sprite(defaultProjectile);
 	}
 	this.width = this.sprite.spriteSheet._frameWidth;
