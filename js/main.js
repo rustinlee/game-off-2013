@@ -73,7 +73,7 @@ function handleComplete() {
 	tileSheet = queue.getResult("tileSheet");
 	wallSprites = new createjs.SpriteSheet({images:[tileSheet],frames:{width:32,height:32}});
 
-	projectileSheet = new createjs.SpriteSheet({images:[queue.getResult("throwing1")],frames:{width:8,height:8}});
+	throwing1 = new createjs.SpriteSheet({images:[queue.getResult("throwing1")],frames:{width:8,height:8}});
 
 	defaultProjectile = new createjs.SpriteSheet({images:[queue.getResult("defaultProjectile")],frames:{width:8,height:8,regY:4}})
 
