@@ -32,6 +32,7 @@ function handleKeys() {
 			player.xv = -(player.runSpeed);
 		}
 		player.facing = 4;
+		player.sprite.scaleX = -1;
 	}
 
 	if (keydown.d) {
@@ -40,6 +41,7 @@ function handleKeys() {
 			player.xv = player.runSpeed;
 		}
 		player.facing = 6;
+		player.sprite.scaleX = 1;
 	}
 
 	if (keydown.w) {
