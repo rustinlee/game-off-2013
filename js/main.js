@@ -75,7 +75,7 @@ function handleComplete() {
 
 	projectileSheet = new createjs.SpriteSheet({images:[queue.getResult("throwing1")],frames:{width:8,height:8}});
 
-	defaultProjectile = new createjs.SpriteSheet({images:[queue.getResult("defaultProjectile")],frames:{width:8,height:8}})
+	defaultProjectile = new createjs.SpriteSheet({images:[queue.getResult("defaultProjectile")],frames:{width:8,height:8,regY:4}})
 
 	turretSheet = new createjs.SpriteSheet({images:[queue.getResult("turretSprite")],frames:[[0,0,20,14,0,10,11],[20,0,4,17,0,2,17]]});
 

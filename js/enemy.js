@@ -79,7 +79,7 @@ function Turret(){
 	};	
 	this.fire = function(angle){
 		if(this.sinceFired >= this.fireDelay){	
-			projectiles.push(new Projectile((this.x + this.width/2 - 8)+20*Math.cos(angle*Math.PI/180), (this.y + this.height/2 - 8)+20*Math.sin(angle*Math.PI/180), Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, this.projectileSprite, false));
+			projectiles.push(new Projectile((this.x + this.width/2)+20*Math.cos(angle*Math.PI/180), (this.y + this.height/2)+20*Math.sin(angle*Math.PI/180), Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, this.projectileSprite, false));
 			world.addChild(projectiles[projectiles.length-1].sprite);
 			this.sinceFired = 0;
 		}
