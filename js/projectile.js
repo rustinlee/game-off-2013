@@ -25,6 +25,8 @@ function Projectile(x, y, xv, yv, sprite, friendly) {
 		this.sprite.x = this.x;
 		this.sprite.y = this.y;
 
+		this.sprite.rotation = Math.atan(this.yv/this.xv)/(Math.PI/180);
+
 		this.ttl -= 1;
 		if(this.ttl <= 0) {
 			this.alive = false;
