@@ -4,6 +4,8 @@ var friction = 1;
 var pitThreshold = Number.POSITIVE_INFINITY;
 
 function init() {
+	initConfigs();
+
 	world = new createjs.Container();
 
 	initLevel(level1);
