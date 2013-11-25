@@ -1,4 +1,4 @@
-function Projectile(x, y, xv, yv, spriteSheet, friendly) {
+function Projectile(x, y, xv, yv, spriteSheet, damage, friendly) {
 	this.x = x;
 	this.y = y;
 	this.xv = xv;
@@ -15,7 +15,7 @@ function Projectile(x, y, xv, yv, spriteSheet, friendly) {
 	//this.width = 4; //these should be defined by the object that's firing
 	//this.height = 4; //
 	this.friendly = friendly;
-	this.damage = 1;
+	this.damage = damage;
 	this.penetrating = false;
 	this.ttl = 300;
 	this.alive = true;

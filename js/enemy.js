@@ -34,7 +34,7 @@ function Walker(x, y, facing){
 	this.fire = function(){
 		this.projectileSprite = new createjs.Sprite(walkerProjectileSheet);
 		this.projectileSprite.gotoAndPlay("flying");
-		projectiles.push(new Projectile(this.x + this.width/2, this.y - this.gun.spriteSheet._frameHeight/2, this.firePower, 0, this.projectileSprite, false));
+		projectiles.push(new Projectile(this.x + this.width/2, this.y - this.gun.spriteSheet._frameHeight/2, this.firePower, 0, this.projectileSprite, 15, false));
 		world.addChild(projectiles[projectiles.length-1].sprite);
 	}
 	this.AI = function(){
@@ -79,7 +79,7 @@ function Turret(){
 	};	
 	this.fire = function(angle){
 		if(this.sinceFired >= this.fireDelay){	
-			projectiles.push(new Projectile((this.x + this.width/2)+20*Math.cos(angle*Math.PI/180), (this.y + this.height/2)+20*Math.sin(angle*Math.PI/180), Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, this.projectileSprite, false));
+			projectiles.push(new Projectile((this.x + this.width/2)+20*Math.cos(angle*Math.PI/180), (this.y + this.height/2)+20*Math.sin(angle*Math.PI/180), Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, this.projectileSprite, 5, false));
 			world.addChild(projectiles[projectiles.length-1].sprite);
 			this.sinceFired = 0;
 		}
@@ -169,7 +169,7 @@ function LaserTurret(x, y, facing){
 	this.lockTime = 180;
 	this.laserLength = 30;
 	this.fire = function(angle){
-		projectiles.push(new Projectile((this.x + this.width/2 - 8)+20*Math.cos(angle*Math.PI/180), (this.y + this.height/2 - 8)+20*Math.sin(angle*Math.PI/180), Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, this.projectileSprite, false));
+		projectiles.push(new Projectile((this.x + this.width/2 - 8)+20*Math.cos(angle*Math.PI/180), (this.y + this.height/2 - 8)+20*Math.sin(angle*Math.PI/180), Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, this.projectileSprite, 10, false));
 		world.addChild(projectiles[projectiles.length-1].sprite);
 		//for (var i = 0; i < this.laserLength; i++) {
 			
