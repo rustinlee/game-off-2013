@@ -1,10 +1,14 @@
-function Projectile(x, y, xv, yv, spriteSheet, damage, friendly) {
+function Projectile(x, y, xv, yv, sprite, damage, friendly) {
 	this.x = x;
 	this.y = y;
 	this.xv = xv;
 	this.yv = yv;
-	if(spriteSheet !== null && spriteSheet !== undefined){
-		this.sprite = new createjs.Sprite(spriteSheet);
+	if(sprite !== null && sprite !== undefined){
+		if(sprite instanceof createjs.SpriteSheet){
+			this.sprite = new createjs.Sprite(sprite);
+		} else if(sprite instanceof createjs.Sprite){
+			this.sprite = sprite;
+		}
 	} else {
 		this.sprite = new createjs.Sprite(defaultProjectile);
 	}
