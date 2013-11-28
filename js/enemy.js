@@ -178,6 +178,19 @@ function LaserTurret(x, y, facing){
 		for (i; i < this.laserLength; i++) {
 			collisionBox.x += Math.cos(angle*Math.PI/180);
 			collisionBox.y += Math.sin(angle*Math.PI/180);
+
+			var collided = false;
+			for (var ii = walls.length - 1; ii >= 0; ii--) {
+				if(checkAABB(collisionBox, walls[ii])){
+					collided = true;
+					break;
+				}
+			};
+
+			if(collided){
+				break;
+			}
+			
 			if(checkAABB(collisionBox, player)){
 				player.HP -= this.damage;
 				break;
