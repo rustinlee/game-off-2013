@@ -6,8 +6,8 @@ function initConfigs(){
 		damage: 5,
 		firePower: 2,
 		fireDelay: 30,
-		projectileCount: 1,
-		projectileSpread: 10,
+		projectileCount: 3,
+		projectileSpread: 30,
 		fire: function() {
 			if(player.sinceFired >= this.fireDelay){
 				var radx = (currentMousePos.x - world.x) - (player.x+player.width/2);
@@ -18,8 +18,8 @@ function initConfigs(){
 				}
 				angle = angle*-1;
 				if(this.projectileCount > 1){
-					for (var i = 1; i <= this.projectileCount; i++) {
-						tempAngle = angle - this.projectileSpread + (this.projectileSpread/this.projectileCount) * i;
+					for (var i = 0; i < this.projectileCount; i++) {
+						tempAngle = angle - this.projectileSpread/2 + (this.projectileSpread/(this.projectileCount-1)) * i;
 						projectiles.push(new Projectile(player.x + player.width/2, player.y + player.height/2, Math.cos(tempAngle*Math.PI/180)*this.firePower, Math.sin(tempAngle*Math.PI/180)*this.firePower, this.projectileSpriteSheet, this.damage, true));
 						world.addChild(projectiles[projectiles.length-1].sprite);
 					};	
