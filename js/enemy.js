@@ -167,13 +167,25 @@ function LaserTurret(x, y, facing){
 	this.lockedOn = false;
 	this.sinceLockedOn = 0;
 	this.lockTime = 180;
-	this.laserLength = 30;
+	this.laserLength = 300;
+	this.laserWidth = 4;
+	this.damage = 25;
 	this.fire = function(angle){
-		projectiles.push(new Projectile((this.x + this.width/2 - 8)+20*Math.cos(angle*Math.PI/180), (this.y + this.height/2 - 8)+20*Math.sin(angle*Math.PI/180), Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, this.projectileSprite, 10, false));
+		var laserOriginX = (this.x + this.width/2)+20*Math.cos(angle*Math.PI/180);
+		var laserOriginY = (this.y + this.height/2)+20*Math.sin(angle*Math.PI/180);
+		collisionBox = {x: laserOriginX, y: laserOriginY, height:1, width:1};
+		var i = 0;
+		for (i; i < this.laserLength; i++) {
+			collisionBox.x += Math.cos(angle*Math.PI/180);
+			collisionBox.y += Math.sin(angle*Math.PI/180);
+			if(checkAABB(collisionBox, player)){
+				player.HP -= this.damage;
+				break;
+			}
+		};
+
+		projectiles.push(new Laser(laserOriginX, laserOriginY, i, this.laserWidth, "#ff0000", angle));
 		world.addChild(projectiles[projectiles.length-1].sprite);
-		//for (var i = 0; i < this.laserLength; i++) {
-			
-		//};
 	};	
 	this.AI = function() {
 		var radx = (player.x+player.width/2) - (this.x+this.width/2);

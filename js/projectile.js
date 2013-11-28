@@ -67,3 +67,21 @@ function Projectile(x, y, xv, yv, sprite, damage, friendly) {
 Projectile.prototype = new Entity();
 
 var projectiles = [];
+
+function Laser(x, y, length, width, color, angle) {
+	this.sprite = new createjs.Shape();
+	this.sprite.graphics.beginFill(color).drawRect(0, 0, length, width);
+	this.sprite.regX = 0;
+	this.sprite.regY = width/2;
+	this.sprite.x = x;
+	this.sprite.y = y;
+	this.sprite.rotation = angle;
+	this.ttl = 60;
+	this.alive = true;
+	this.step = function() {
+		this.ttl -= 1;
+		if(this.ttl <= 0) {
+			this.alive = false;
+		}
+	}
+}
