@@ -173,7 +173,7 @@ function LaserTurret(x, y, facing){
 	this.fire = function(angle){
 		var laserOriginX = (this.x + this.width/2)+20*Math.cos(angle*Math.PI/180);
 		var laserOriginY = (this.y + this.height/2)+20*Math.sin(angle*Math.PI/180);
-		collisionBox = {x: laserOriginX, y: laserOriginY, height:1, width:1};
+		var collisionBox = {x: laserOriginX, y: laserOriginY, height:1, width:1};
 		var i = 0;
 		for (i; i < this.laserLength; i++) {
 			collisionBox.x += Math.cos(angle*Math.PI/180);
