@@ -69,7 +69,7 @@ function PlayerClass(x, y, maxHP, sprite) {
 	this.onGround = true;
 
 	this.currentConfig = 1;
-	var configs = {
+	this.configs = {
 		1: throwingWeaponConfig
 	}
 	this.die = function() {
@@ -83,7 +83,7 @@ function PlayerClass(x, y, maxHP, sprite) {
 		//more consequences for death soon
 	};
 	this.fire = function() {
-		configs[this.currentConfig].fire();
+		this.configs[this.currentConfig].fire();
 	};
 }
 
