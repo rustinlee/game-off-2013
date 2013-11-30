@@ -3,13 +3,15 @@ function Walker(x, y, facing){
 	this.y = y;
 	this.xv = 0;
 	this.yv = 0;
-	this.facing = facing;
 	this.sprite = new createjs.Container;
 	this.base = new createjs.Sprite(walkerBaseSheet, "run");
 	this.gun = new createjs.Sprite(walkerGunSheet, "idle");
-	if(this.facing == 6){
+	if(facing == 6){
 		this.sprite.scaleX = -1;
-	}	
+		this.firePower = 3;
+	} else if(facing == 4) {
+		this.firePower = -3;
+	}
 	this.sprite.addChild(this.gun, this.base);
 	this.width = this.base.spriteSheet._frameWidth;
 	this.height = this.base.spriteSheet._frameHeight;
@@ -18,7 +20,6 @@ function Walker(x, y, facing){
 	this.maxHP = 10;
 	this.HP = this.maxHP;
 	this.runSpeed = 1;
-	this.firePower = 3;
 	this.fireDelay = 150;
 	this.sinceFired = this.fireDelay;
 	this.alive = true;
