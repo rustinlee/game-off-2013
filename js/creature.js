@@ -98,7 +98,7 @@ function Creature(x, y, maxHP, sprite) {
 	};
 	this.die = function() {
 		world.removeChild(this.sprite);
-		//once I make an enemy class this will award XP 
+		player.configs[player.currentConfig].curEXP += this.EXP;
 	};
 	this.setNormal = function(x, y) {
 		this.collisionNormal[0] = x;

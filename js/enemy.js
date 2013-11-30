@@ -31,6 +31,7 @@ function Walker(x, y, facing){
 		height: 1
 	};
 	this.onGround = true;
+	this.EXP = 10;
 	this.fire = function(){
 		this.projectileSprite = new createjs.Sprite(walkerProjectileSheet);
 		this.projectileSprite.gotoAndPlay("flying");
@@ -134,6 +135,7 @@ function BulletTurret(x, y, facing){
 	this.fireDelay = 30;
 	this.sinceFired = this.fireDelay;
 	this.alive = true;
+	this.EXP = 15;
 }
 
 BulletTurret.prototype = new Turret();
@@ -170,6 +172,7 @@ function LaserTurret(x, y, facing){
 	this.laserLength = 300;
 	this.laserWidth = 4;
 	this.damage = 25;
+	this.EXP = 25;
 	this.fire = function(angle){
 		var laserOriginX = (this.x + this.width/2)+20*Math.cos(angle*Math.PI/180);
 		var laserOriginY = (this.y + this.height/2)+20*Math.sin(angle*Math.PI/180);
