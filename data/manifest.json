@@ -20,5 +20,9 @@
 	{"id":"throwing2", "src":"img/weapon/throwing/dagger2.png"},
 	{"id":"throwing3", "src":"img/weapon/throwing/kunai.png"},
 	{"id":"throwing4", "src":"img/weapon/throwing/shuriken.png"},
-	{"id":"throwing5", "src":"img/weapon/throwing/shuriken2.png"}
+	{"id":"throwing5", "src":"img/weapon/throwing/shuriken2.png"},
+	{"id":"HUD", "src":"img/ui/HUD.png"},
+	{"id":"hpBar", "src":"img/ui/hpbar.png"},
+	{"id":"xpBar", "src":"img/ui/xpbar.png"},
+	{"id":"boostBar", "src":"img/ui/boostbar.png"}
 ]

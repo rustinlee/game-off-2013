@@ -81,6 +81,12 @@ function handleComplete() {
 
 	turretSheet = new createjs.SpriteSheet({images:[queue.getResult("turretSprite")],frames:[[0,0,20,14,0,10,11],[20,0,4,17,0,2,17]]});
 
+	xpBarSprite = new createjs.Bitmap(queue.getResult("xpBar"));
+	hpBarSprite = new createjs.Bitmap(queue.getResult("hpBar"));
+	boostBarSprite = new createjs.Bitmap(queue.getResult("boostBar"));
+
+	HUDSprite = new createjs.Bitmap(queue.getResult("HUD"));
+
 	init();
 }
 
