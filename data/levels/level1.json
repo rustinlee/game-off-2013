@@ -22,6 +22,11 @@
 	"enemies": [
 		{"x":72, "y":232, "facing":6, "type":"BulletTurret"},
 		{"x":72, "y":264, "facing":6, "type":"LaserTurret"},
-		{"x":300, "y":232, "facing":6, "type":"Walker"}
+		{"x":52, "y":357, "facing":2, "type":"LaserTurret"},
+		{"x":300, "y":232, "facing":6, "type":"Walker"},
+		{"x":900, "y":232, "facing":4, "type":"Walker"},
+		{"x":1100, "y":232, "facing":4, "type":"Walker"},
+		{"x":1300, "y":232, "facing":4, "type":"Walker"},
+		{"x":1500, "y":232, "facing":4, "type":"Walker"}
 	]
 }
