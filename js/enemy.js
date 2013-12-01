@@ -220,16 +220,39 @@ function LaserTurret(x, y, facing){
 			angle += 180;
 		}
 		angle = angle*-1;
-		var withinBounds = (angle >= -60 && angle <= 60);
+
+		var adjustedRotation = angle + 90 - this.sprite.rotation;
+
+		var lowerBound = -150 + this.sprite.rotation;
+		var upperBound = -30 + this.sprite.rotation;
+		var withinBounds = (angle >= lowerBound && angle <= upperBound);
+		var inverseRotation = false;
+
+		if(upperBound > 90){
+			lowerBound = -270 + (upperBound - 90);
+			upperBound = -150 + this.sprite.rotation;
+			withinBounds = (angle <= lowerBound || angle >= upperBound);
+		}
+
+		if(adjustedRotation < -180){
+			adjustedRotation += 360;
+			inverseRotation = true;
+		}
+
 		if(withinBounds) {
-			if(this.barrel.rotation > angle) {
+			if(this.barrel.rotation > adjustedRotation) {
 				this.barrel.rotation --;
-			} else if(this.barrel.rotation < angle) {
+			} else if(this.barrel.rotation < adjustedRotation) {
 				this.barrel.rotation ++;
 			}
+
 			this.sinceLockedOn ++;
 			if(this.sinceLockedOn >= this.lockTime){
-				this.fire(this.barrel.rotation);
+				if(!inverseRotation){
+					this.fire(this.barrel.rotation - 90 + this.sprite.rotation);
+				} else {
+					this.fire(this.barrel.rotation - 90 - this.sprite.rotation);
+				}
 				this.sinceLockedOn = 0;
 			}
 		} else {
