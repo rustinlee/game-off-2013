@@ -26,6 +26,7 @@ function step() {
 	handleMouse();
 
 	player.step();
+	player.configs[player.currentConfig].step();
 
 	for (var i = projectiles.length - 1; i >= 0; i--) {
 		projectiles[i].step();
@@ -83,6 +84,7 @@ function handleComplete() {
 	throwing6 = new createjs.SpriteSheet({images:[queue.getResult("throwing6")],frames:{width:16,height:16,regX:8,regY:8}});
 
 	fistSheet = new createjs.SpriteSheet({images:[queue.getResult("fistSheet")],frames:{width:18,height:13,regY:3}});
+	fistSprite = new createjs.Sprite(fistSheet);
 
 	kiSheet = new createjs.SpriteSheet({images:[queue.getResult("kiSheet")],frames:{width:20,height:36,regY:36}})
 

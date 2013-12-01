@@ -31,6 +31,12 @@ function initConfigs(){
 				projectileSpread: 50
 			}
 		],
+		init: function() {
+			//add the player's arm sprite once we get it
+		},
+		cleanup: function() {
+			//and remove it
+		},
 		fire: function() {
 			if(player.sinceFired >= this.levels[this.level-1].fireDelay){
 				var radx = (currentMousePos.x - world.x) - (player.x+player.width/2);
@@ -56,6 +62,64 @@ function initConfigs(){
 				}
 				player.sinceFired = 0;
 			}
+		},
+		step: function() {
+			//will rotate player's arms once we get the proper art
+		}
+	}
+	fistConfig = {
+		level: 1,
+		curEXP: 0,
+		container: new createjs.Container(),
+		levels: [
+			{
+				EXPtoNext: 100,
+				//projectileSpriteSheets: [throwing1],
+				damage: 3,
+				firePower: 3,
+				fireDelay: 50,
+				projectileCount: 1,
+				projectileSpread: 30
+			},
+			{
+				EXPtoNext: 300,
+				//projectileSpriteSheets: [throwing1, throwing2],
+				damage: 4,
+				firePower: 4,
+				fireDelay: 40,
+				projectileCount: 1,
+				projectileSpread: 30
+			},
+			{
+				EXPtoNext: 500,
+				//projectileSpriteSheets: [throwing3, throwing4],
+				damage: 5,
+				firePower: 5,
+				fireDelay: 30,
+				projectileCount: 3,
+				projectileSpread: 30
+			}
+		],
+		init: function() {
+			this.container.addChild(fistSprite);
+			player.sprite.addChild(this.container);
+		},
+		cleanup: function() {
+			player.sprite.removeChild(this.container);
+		},
+		fire: function() {
+
+		},
+		step: function() {
+			var radx = (currentMousePos.x - world.x) - (player.x+player.width/2);
+			var rady = ((currentMousePos.y - world.y) - (player.y+player.height/2))*-1;
+			var angle = Math.atan(rady/radx)/(Math.PI/180);
+			if (radx <0) {
+				angle += 180;
+			}
+			angle = angle*-1;
+
+			this.container.rotation = angle;
 		}
 	}
 }
@@ -65,10 +129,11 @@ function PlayerClass(x, y, maxHP, sprite) {
 	this.y = y;
 	this.xv = 0;
 	this.yv = 0;
-	this.sprite = sprite;
+	this.sprite = new createjs.Container();
+	this.sprite.addChild(sprite);
 	if(sprite !== null && sprite !== undefined){
-		this.width = this.sprite.spriteSheet._frameWidth;
-		this.height = this.sprite.spriteSheet._frameHeight;
+		this.width = sprite.spriteSheet._frameWidth;
+		this.height = sprite.spriteSheet._frameHeight;
 	} else {
 		this.width = 0;
 		this.height = 0;
@@ -97,7 +162,8 @@ function PlayerClass(x, y, maxHP, sprite) {
 
 	this.currentConfig = 1;
 	this.configs = {
-		1: throwingWeaponConfig
+		1: throwingWeaponConfig,
+		2: fistConfig
 	}
 	this.die = function() {
 		this.x = this.checkpointX;
@@ -118,6 +184,11 @@ function PlayerClass(x, y, maxHP, sprite) {
 			this.configs[this.currentConfig].curEXP = 0;
 		}
 	};
+	this.setConfig = function(config) {
+		this.configs[this.currentConfig].cleanup();
+		this.currentConfig = config;
+		this.configs[this.currentConfig].init();
+	}
 }
 
 PlayerClass.prototype = new Creature();
