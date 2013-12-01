@@ -57,7 +57,7 @@ function handleComplete() {
 	playerSheet = new createjs.SpriteSheet({
 		images:[queue.getResult("playerSheet")],
 		frames:{width:32,height:48},
-		animations: {idle:[12], run:[0,11,true,0.2]}
+		animations: {idle:[0], run:[1,12,true,0.2]}
 	});
 
 	playerSprite = new createjs.Sprite(playerSheet, "idle");
