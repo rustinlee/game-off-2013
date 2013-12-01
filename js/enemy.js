@@ -13,8 +13,8 @@ function Walker(x, y, facing){
 		this.firePower = -3;
 	}
 	this.sprite.addChild(this.gun, this.base);
-	this.width = this.base.spriteSheet._frameWidth;
-	this.height = this.base.spriteSheet._frameHeight;
+	this.width = this.base.spriteSheet._images[0].width;
+	this.height = this.base.spriteSheet._images[0].height;
 	this.sprite.x = this.x;
 	this.sprite.y = this.y;
 	this.maxHP = 10;
@@ -134,8 +134,8 @@ function BulletTurret(x, y, facing){
 	if(cases[facing]){
 		this.sprite.rotation = cases[facing];
 	}
-	this.width = this.base.spriteSheet._frameWidth;
-	this.height = this.base.spriteSheet._frameHeight;
+	this.width = this.base.spriteSheet._images[0].width;
+	this.height = this.base.spriteSheet._images[0].height;
 	this.sprite.x = this.x;
 	this.sprite.y = this.y;
 	this.maxHP = 10;
@@ -168,8 +168,8 @@ function LaserTurret(x, y, facing){
 	if(cases[facing]){
 		this.sprite.rotation = cases[facing];
 	}
-	this.width = this.base.spriteSheet._frameWidth;
-	this.height = this.base.spriteSheet._frameHeight;
+	this.width = this.base.spriteSheet._images[0].width;
+	this.height = this.base.spriteSheet._images[0].height;
 	this.sprite.x = this.x;
 	this.sprite.y = this.y;
 	this.maxHP = 10;
