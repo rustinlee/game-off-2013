@@ -7,7 +7,7 @@ function initConfigs(){
 				EXPtoNext: 100,
 				projectileSpriteSheets: [throwing1],
 				damage: 5,
-				firePower: 2,
+				firePower: 3,
 				fireDelay: 30,
 				projectileCount: 1,
 				projectileSpread: 30
@@ -16,7 +16,7 @@ function initConfigs(){
 				EXPtoNext: 300,
 				projectileSpriteSheets: [throwing1, throwing2],
 				damage: 6,
-				firePower: 2,
+				firePower: 3,
 				fireDelay: 25,
 				projectileCount: 3,
 				projectileSpread: 30
@@ -25,7 +25,7 @@ function initConfigs(){
 				EXPtoNext: 500,
 				projectileSpriteSheets: [throwing3, throwing4],
 				damage: 7,
-				firePower: 2,
+				firePower: 3,
 				fireDelay: 20,
 				projectileCount: 5,
 				projectileSpread: 50
