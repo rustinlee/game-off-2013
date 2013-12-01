@@ -60,33 +60,6 @@ function handleKeys() {
 	if (!keydown.space) {
 		player.isJumping = false;
 	}
-
-	// camera controls (debug)
-	if (keydown.up) {
-		world.y += 5;
-	}
-
-	if (keydown.down) {
-		world.y -= 5;
-	}
-
-	if (keydown.left) {
-		world.x += 5;
-	}
-
-	if (keydown.right) {
-		world.x -= 5;
-	}
-
-	if (keydown.shift) {
-		world.scaleX += world.scaleX*0.01;
-		world.scaleY += world.scaleY*0.01;
-	}
-
-	if (keydown.ctrl) {
-		world.scaleX -= world.scaleX*0.01;
-		world.scaleY -= world.scaleY*0.01;
-	}	
 }
 
 function handleMouse() {
