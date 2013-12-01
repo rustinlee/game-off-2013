@@ -101,6 +101,8 @@ function initConfigs(){
 			}
 		],
 		init: function() {
+			this.container.x = 7;
+			this.container.y = 19;
 			this.container.addChild(fistSprite);
 			player.sprite.addChild(this.container);
 		},
