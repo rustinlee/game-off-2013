@@ -54,8 +54,13 @@ function step() {
 function handleComplete() {
 	level1 = queue.getResult("level1");
 
-	playerSheet = new createjs.SpriteSheet({images:[queue.getResult("playerSprite")],frames:{width:15,height:46}});
-	playerSprite = new createjs.Sprite(playerSheet);
+	playerSheet = new createjs.SpriteSheet({
+		images:[queue.getResult("playerSheet")],
+		frames:{width:32,height:48},
+		animations: {idle:[12], run:[0,11,true,0.2]}
+	});
+
+	playerSprite = new createjs.Sprite(playerSheet, "idle");
 
 	walkerBaseSheet = new createjs.SpriteSheet({
 		images: [queue.getResult("walkerBase")],

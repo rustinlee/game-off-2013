@@ -9,7 +9,7 @@
 	{"id":"city3", "src":"img/bg/city3.png"},
 	{"id":"city4", "src":"img/bg/city4.png"},
 	{"id":"city5", "src":"img/bg/city5.png"},
-	{"id":"playerSprite", "src":"img/player.png"},
+	{"id":"playerSheet", "src":"img/playerSheet.png"},
 	{"id":"walkerBase", "src":"img/enemy/walker_base.png"},
 	{"id":"walkerGun", "src":"img/enemy/walker_gun.png"},
 	{"id":"walkerProjectile", "src":"img/enemy/walker_projectile.png"},
