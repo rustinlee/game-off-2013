@@ -22,6 +22,8 @@
 	{"id":"throwing4", "src":"img/weapon/throwing/kunai2.png"},
 	{"id":"throwing5", "src":"img/weapon/throwing/shuriken.png"},
 	{"id":"throwing6", "src":"img/weapon/throwing/shuriken2.png"},
+	{"id":"fistSheet", "src":"img/weapon/fist/fist.png"},
+	{"id":"kiSheet", "src":"img/weapon/fist/ki.png"},
 	{"id":"HUD", "src":"img/ui/HUD.png"},
 	{"id":"hpBar", "src":"img/ui/hpbar.png"},
 	{"id":"xpBar", "src":"img/ui/xpbar.png"},

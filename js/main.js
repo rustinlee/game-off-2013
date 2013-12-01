@@ -80,7 +80,11 @@ function handleComplete() {
 	throwing3 = new createjs.SpriteSheet({images:[queue.getResult("throwing3")],frames:{width:16,height:16,regY:8}});
 	throwing4 = new createjs.SpriteSheet({images:[queue.getResult("throwing4")],frames:{width:32,height:16,regY:8}});
 	throwing5 = new createjs.SpriteSheet({images:[queue.getResult("throwing5")],frames:{width:16,height:16,regX:8,regY:8}});
-	throwing6 = new createjs.SpriteSheet({images:[queue.getResult("throwing6")],frames:{width:16,height:16,regX:8,regY:8}});	
+	throwing6 = new createjs.SpriteSheet({images:[queue.getResult("throwing6")],frames:{width:16,height:16,regX:8,regY:8}});
+
+	fistSheet = new createjs.SpriteSheet({images:[queue.getResult("fistSheet")],frames:{width:18,height:13,regY:3}});
+
+	kiSheet = new createjs.SpriteSheet({images:[queue.getResult("kiSheet")],frames:{width:20,height:36,regY:36}})
 
 	defaultProjectile = new createjs.SpriteSheet({images:[queue.getResult("defaultProjectile")],frames:{width:8,height:8,regY:4}})
 
