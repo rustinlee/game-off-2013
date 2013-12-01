@@ -96,7 +96,6 @@ function Turret(){
 		angle = angle*-1;
 		var lowerBound = -150 + this.sprite.rotation;
 		var upperBound = -30 + this.sprite.rotation;
-		var lowerFlag = false;
 		var withinBounds = (angle >= lowerBound && angle <= upperBound);
 
 		if(upperBound > 90){
@@ -105,9 +104,6 @@ function Turret(){
 			withinBounds = (angle <= lowerBound || angle >= upperBound);
 		}
 		
-		console.log(angle);
-		console.log(upperBound);
-		console.log(lowerBound);
 		if(withinBounds) {
 			this.barrel.rotation = angle + 90 - this.sprite.rotation;
 			this.fire(angle);
