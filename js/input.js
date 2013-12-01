@@ -44,6 +44,14 @@ function handleKeys() {
 		player.sprite.scaleX = 1;
 	}
 
+	if(keydown.a || keydown.d) {
+		if(player.sprite.children[0].currentAnimation != "run"){
+			player.sprite.children[0].gotoAndPlay("run");	
+		}
+	} else {
+		player.sprite.children[0].gotoAndStop("idle");
+	}
+
 	if (keydown.w) {
 		player.facing = 8;
 	}
