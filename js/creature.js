@@ -99,6 +99,7 @@ function Creature(x, y, maxHP, sprite) {
 	this.die = function() {
 		world.removeChild(this.sprite);
 		player.configs[player.currentConfig].curEXP += this.EXP;
+		player.checkLevelUp();
 	};
 	this.setNormal = function(x, y) {
 		this.collisionNormal[0] = x;

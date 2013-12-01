@@ -79,6 +79,7 @@ function Turret(){
 	this.die = function() {
 		world.removeChild(this.sprite);
 		player.configs[player.currentConfig].curEXP += this.EXP;
+		player.checkLevelUp();
 	};	
 	this.fire = function(angle){
 		if(this.sinceFired >= this.fireDelay){	

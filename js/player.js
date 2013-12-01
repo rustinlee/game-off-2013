@@ -1,15 +1,38 @@
 function initConfigs(){
 	throwingWeaponConfig = {
+		level: 1,
 		curEXP: 0,
-		EXPtoNext: 100,
-		projectileSpriteSheet: throwing1,
-		damage: 5,
-		firePower: 2,
-		fireDelay: 30,
-		projectileCount: 3,
-		projectileSpread: 30,
+		levels: [
+			{
+				EXPtoNext: 100,
+				projectileSpriteSheets: [throwing1],
+				damage: 5,
+				firePower: 2,
+				fireDelay: 30,
+				projectileCount: 1,
+				projectileSpread: 30
+			},
+			{
+				EXPtoNext: 300,
+				projectileSpriteSheets: [throwing1, throwing2],
+				damage: 6,
+				firePower: 2,
+				fireDelay: 25,
+				projectileCount: 3,
+				projectileSpread: 30
+			},
+			{
+				EXPtoNext: 500,
+				projectileSpriteSheets: [throwing3, throwing4],
+				damage: 7,
+				firePower: 2,
+				fireDelay: 20,
+				projectileCount: 5,
+				projectileSpread: 50
+			}
+		],
 		fire: function() {
-			if(player.sinceFired >= this.fireDelay){
+			if(player.sinceFired >= this.levels[this.level-1].fireDelay){
 				var radx = (currentMousePos.x - world.x) - (player.x+player.width/2);
 				var rady = ((currentMousePos.y - world.y) - (player.y+player.height/2))*-1;
 				var angle = Math.atan(rady/radx)/(Math.PI/180);
@@ -17,14 +40,18 @@ function initConfigs(){
 					angle += 180;
 				}
 				angle = angle*-1;
-				if(this.projectileCount > 1){
-					for (var i = 0; i < this.projectileCount; i++) {
-						tempAngle = angle - this.projectileSpread/2 + (this.projectileSpread/(this.projectileCount-1)) * i;
-						projectiles.push(new Projectile(player.x + player.width/2, player.y + player.height/2, Math.cos(tempAngle*Math.PI/180)*this.firePower, Math.sin(tempAngle*Math.PI/180)*this.firePower, this.projectileSpriteSheet, this.damage, true));
+				if(this.levels[this.level-1].projectileCount > 1){
+					for (var i = 0; i < this.levels[this.level-1].projectileCount; i++) {
+						var sprite = this.levels[this.level-1].projectileSpriteSheets[0];
+						if(i+1 == Math.ceil(this.levels[this.level-1].projectileCount/2) && this.levels[this.level-1].projectileSpriteSheets.length > 1){
+							sprite = this.levels[this.level-1].projectileSpriteSheets[1];
+						}
+						tempAngle = angle - this.levels[this.level-1].projectileSpread/2 + (this.levels[this.level-1].projectileSpread/(this.levels[this.level-1].projectileCount-1)) * i;
+						projectiles.push(new Projectile(player.x + player.width/2, player.y + player.height/2, Math.cos(tempAngle*Math.PI/180)*this.levels[this.level-1].firePower, Math.sin(tempAngle*Math.PI/180)*this.levels[this.level-1].firePower, sprite, this.levels[this.level-1].damage, true));
 						world.addChild(projectiles[projectiles.length-1].sprite);
 					};	
 				} else {
-					projectiles.push(new Projectile(player.x + player.width/2, player.y + player.height/2, Math.cos(angle*Math.PI/180)*this.firePower, Math.sin(angle*Math.PI/180)*this.firePower, this.projectileSpriteSheet, this.damage, true));
+					projectiles.push(new Projectile(player.x + player.width/2, player.y + player.height/2, Math.cos(angle*Math.PI/180)*this.levels[this.level-1].firePower, Math.sin(angle*Math.PI/180)*this.levels[this.level-1].firePower, this.levels[this.level-1].projectileSpriteSheets[0], this.levels[this.level-1].damage, true));
 					world.addChild(projectiles[projectiles.length-1].sprite);
 				}
 				player.sinceFired = 0;
@@ -84,6 +111,12 @@ function PlayerClass(x, y, maxHP, sprite) {
 	};
 	this.fire = function() {
 		this.configs[this.currentConfig].fire();
+	};
+	this.checkLevelUp = function() { //clean this up good lord
+		if(this.configs[this.currentConfig].curEXP >= this.configs[this.currentConfig].levels[this.configs[this.currentConfig].level-1].EXPtoNext && this.configs[this.currentConfig].level < this.configs[this.currentConfig].levels.length){ 
+			this.configs[this.currentConfig].level++;
+			this.configs[this.currentConfig].curEXP = 0;
+		}
 	};
 }
 

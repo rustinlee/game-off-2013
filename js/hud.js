@@ -20,7 +20,7 @@ function HeadsUpDisplay() {
 	};
 	this.step = function(){
 		//xp, boost and life bars
-		var xpBarScale = player.configs[player.currentConfig].curEXP / player.configs[player.currentConfig].EXPtoNext;
+		var xpBarScale = player.configs[player.currentConfig].curEXP / player.configs[player.currentConfig].levels[player.configs[player.currentConfig].level-1].EXPtoNext;
 		xpBarSprite.cache(0, 0, xpBarSprite.image.width * (xpBarScale) + 1, xpBarSprite.image.height);
 		var hpBarScale = player.HP / player.maxHP;
 		hpBarSprite.cache(0, 0, hpBarSprite.image.width * (hpBarScale) + 1, hpBarSprite.image.height);
