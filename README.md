@@ -11,3 +11,4 @@ An experimental platformer written in JavaScript using HTML5 Canvas.
 * [jQuery](http://jquery.com/)
 * [jquery.hotkeys](https://github.com/jeresig/jquery.hotkeys)
 * [CreateJS](http://www.createjs.com/)
+* [howler.js](http://goldfirestudios.com/blog/104/howler.js-Modern-Web-Audio-Javascript-Library)
