@@ -146,25 +146,25 @@ function initConfigs(){
 		levels: [
 			{
 				EXPtoNext: 100,
-				damage: 3,
+				damage: 8,
 				firePower: 2.5,
-				fireDelay: 30,
+				fireDelay: 50,
 				projectileSpread: 30,
 				armSprite: cannon1
 			},
 			{
 				EXPtoNext: 300,
-				damage: 4,
+				damage: 11,
 				firePower: 3,
-				fireDelay: 30,
+				fireDelay: 50,
 				projectileSpread: 30,
 				armSprite: cannon2
 			},
 			{
 				EXPtoNext: 500,
-				damage: 5,
+				damage: 15,
 				firePower: 3.5,
-				fireDelay: 30,
+				fireDelay: 50,
 				projectileSpread: 30,
 				armSprite: cannon3
 			}
@@ -185,7 +185,7 @@ function initConfigs(){
 				}
 				angle = angle*-1;
 				var projectileSprite = new createjs.Sprite(walkerProjectileSheet, "flying"); //placeholder
-				projectiles.push(new Projectile(player.x + player.width/2, player.y + player.height/2, Math.cos(angle*Math.PI/180)*this.levels[this.level-1].firePower, Math.sin(angle*Math.PI/180)*this.levels[this.level-1].firePower, projectileSprite, this.levels[this.level-1].damage, true, true, 60));
+				projectiles.push(new Projectile(player.x + player.width/2, player.y + player.height/2, Math.cos(angle*Math.PI/180)*this.levels[this.level-1].firePower, Math.sin(angle*Math.PI/180)*this.levels[this.level-1].firePower, projectileSprite, this.levels[this.level-1].damage, true));
 				world.addChild(projectiles[projectiles.length-1].sprite);
 				player.sinceFired = 0;
 			}
