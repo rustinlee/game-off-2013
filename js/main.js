@@ -39,16 +39,15 @@ function step() {
 		level++;
 		if(!levels[level]){
 			alert("That's all for now. Thanks for playing!");
-			level = 1;
-		} else {
-			world.removeAllChildren();
-			stage.removeAllChildren();
-			parallax.images = [];
-			initLevel(levels[level]);
-			stage.addChild(world);
-			hud = new HeadsUpDisplay();
-			hud.init();				
+			level = 0;
 		}
+		world.removeAllChildren();
+		stage.removeAllChildren();
+		parallax.images = [];
+		initLevel(levels[level]);
+		stage.addChild(world);
+		hud = new HeadsUpDisplay();
+		hud.init();
 	}
 
 	for (var i = projectiles.length - 1; i >= 0; i--) {
