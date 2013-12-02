@@ -46,5 +46,5 @@
 		{"x":4532, "y":336, "facing":6, "type":"LaserTurret"}
 	],
 
-	"endGoal":{"x":4475}
+	"endGoal":{"x":4600}
 }
