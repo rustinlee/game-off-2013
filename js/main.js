@@ -4,11 +4,14 @@ var friction = 1;
 var pitThreshold = Number.POSITIVE_INFINITY;
 
 function init() {
+	levels = [level1, level2];
+	level = 0;
+
 	initConfigs();
 
 	world = new createjs.Container();
 
-	initLevel(level1);
+	initLevel(levels[level]);
 
 	stage.addChild(world);
 
@@ -27,6 +30,22 @@ function step() {
 
 	player.step();
 	player.configs[player.currentConfig].step();
+
+	if(player.x > endGoal.x){
+		alert("Level complete!");
+		level++;
+		if(!levels[level]){
+			alert("That's all for now. Thanks for playing!")
+		} else {
+			world.removeAllChildren();
+			stage.removeAllChildren();
+			parallax.images = [];
+			initLevel(levels[level]);
+			stage.addChild(world);
+			hud = new HeadsUpDisplay();
+			hud.init();				
+		}
+	}
 
 	for (var i = projectiles.length - 1; i >= 0; i--) {
 		projectiles[i].step();
@@ -53,6 +72,7 @@ function step() {
 
 function handleComplete() {
 	level1 = queue.getResult("level1");
+	level2 = queue.getResult("level2");
 
 	playerSheet = new createjs.SpriteSheet({
 		images:[queue.getResult("playerSheet")],

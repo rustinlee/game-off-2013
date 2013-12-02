@@ -45,5 +45,5 @@
 		{"x":4470, "y":0, "facing":4, "type":"Walker"}
 	],
 
-	"endGoal":{"x":5000}
+	"endGoal":{"x":5600}
 }

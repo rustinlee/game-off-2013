@@ -70,4 +70,6 @@ function initLevel(data) {
 		if (tmp > pitThreshold) pitThreshold = tmp;
 	}
 	pitThreshold += 500; //threshold after which to consider the player to have fallen into a pit
+
+	endGoal = data.endGoal;
 }
