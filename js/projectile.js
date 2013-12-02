@@ -50,11 +50,9 @@ function Projectile(x, y, xv, yv, sprite, damage, friendly, penetrating, ttl) {
 
 		if(!this.penetrating){
 			for (var i = walls.length - 1; i >= 0; i--) {
-				for (var ii = walls[i].sprite.children.length - 1; ii >= 0; ii--) {
-					if(ndgmr.checkPixelCollision(this.sprite,walls[i].sprite.children[ii])){
-						this.alive = false;
-					}					
-				};
+				if(checkAABB(this,walls[i])){
+					this.alive = false;
+				}
 			}
 		}
 
