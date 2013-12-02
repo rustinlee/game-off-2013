@@ -24,6 +24,7 @@ function HeadsUpDisplay() {
 		xpBarSprite.cache(0, 0, xpBarSprite.image.width * (xpBarScale) + 1, xpBarSprite.image.height);
 		var hpBarScale = player.HP / player.maxHP;
 		hpBarSprite.cache(0, 0, hpBarSprite.image.width * (hpBarScale) + 1, hpBarSprite.image.height);
-		//boostBarSprite.cache(0, 0, boostBarSprite.image.width * (), boostBarSprite.image.height);
+		var boostBarScale = player.boost / player.maxBoost;
+		boostBarSprite.cache(0, 0, boostBarSprite.image.width * (boostBarScale), boostBarSprite.image.height);
 	};
 }

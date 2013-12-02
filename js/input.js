@@ -68,13 +68,22 @@ function handleKeys() {
 		player.facing = 2;
 	}
 
-	if (keydown.space && !player.isJumping) { //need to figure out how to bind keypress
+	if (keydown.w && !player.isJumping) { //need to figure out how to bind keypress
 		player.jump();
 		player.isJumping = true;
 	}
 
-	if (!keydown.space) {
+	if (!keydown.w) {
 		player.isJumping = false;
+	}
+
+	if (keydown.shift) {
+		player.boost -= 8;		
+		if(player.boost > 0){
+			player.yv -= 1.25;
+		} else {
+			player.boost = 0;
+		}
 	}
 }
 

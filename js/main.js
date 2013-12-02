@@ -30,12 +30,16 @@ function step() {
 
 	player.step();
 	player.configs[player.currentConfig].step();
+	if(player.boost <= player.maxBoost){
+		player.boost += 1;
+	}
 
 	if(player.x > endGoal.x){
 		alert("Level complete!");
 		level++;
 		if(!levels[level]){
-			alert("That's all for now. Thanks for playing!")
+			alert("That's all for now. Thanks for playing!");
+			level = 1;
 		} else {
 			world.removeAllChildren();
 			stage.removeAllChildren();

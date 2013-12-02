@@ -227,6 +227,8 @@ function PlayerClass(x, y, maxHP, sprite) {
 
 	this.maxHP = maxHP;
 	this.HP = this.maxHP;
+	this.maxBoost = 250;
+	this.boost = this.maxBoost;
 	this.facing = 5; //numpad notation: 4 = left, 6 = right, 8 = up, 2 = down
 	this.runSpeed = 6;
 	this.isJumping = false;
