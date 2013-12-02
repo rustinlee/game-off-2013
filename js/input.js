@@ -60,14 +60,6 @@ function handleKeys() {
 		player.sprite.children[0].gotoAndStop("idle");
 	}
 
-	if (keydown.w) {
-		player.facing = 8;
-	}
-
-	if (keydown.s) {
-		player.facing = 2;
-	}
-
 	if (keydown.w && !player.isJumping) { //need to figure out how to bind keypress
 		player.jump();
 		player.isJumping = true;
