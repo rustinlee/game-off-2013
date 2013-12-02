@@ -50,15 +50,17 @@ function Projectile(x, y, xv, yv, sprite, damage, friendly, penetrating, ttl) {
 
 		if(!this.penetrating){
 			for (var i = walls.length - 1; i >= 0; i--) {
-				if(checkAABB(this,walls[i])){
-					this.alive = false;
-				}
+				for (var ii = walls[i].sprite.children.length - 1; ii >= 0; ii--) {
+					if(ndgmr.checkPixelCollision(this.sprite,walls[i].sprite.children[ii])){
+						this.alive = false;
+					}					
+				};
 			}
 		}
 
 		if(this.friendly) {
 			for (var i = creatures.length - 1; i >= 0; i--) {
-				if(checkAABB(this,creatures[i])){
+				if(ndgmr.checkPixelCollision(this.sprite,creatures[i].sprite.children[0])){
 					creatures[i].HP -= this.damage;
 					if(!this.penetrating) {
 						this.alive = false;
@@ -66,7 +68,7 @@ function Projectile(x, y, xv, yv, sprite, damage, friendly, penetrating, ttl) {
 				}
 			}
 		} else {
-			if(checkAABB(this,player)){
+			if(ndgmr.checkPixelCollision(this.sprite,player.sprite.children[0])){
 				player.HP -= this.damage;
 				this.alive = false;
 			}
