@@ -4,7 +4,7 @@ An experimental danmaku (bullet hell) platformer written in JavaScript using HTM
 
 ## Screenshots
 
-* Coming soon.
+![screenshot](http://puu.sh/5zzqh/bf7bc27706.png)
 
 ## Components
 
