@@ -1,4 +1,4 @@
-function Projectile(x, y, xv, yv, sprite, damage, friendly) {
+function Projectile(x, y, xv, yv, sprite, damage, friendly, penetrating, ttl) {
 	this.x = x;
 	this.y = y;
 	this.xv = xv;
@@ -20,8 +20,16 @@ function Projectile(x, y, xv, yv, sprite, damage, friendly) {
 	//this.height = 4; //
 	this.friendly = friendly;
 	this.damage = damage;
-	this.penetrating = false;
-	this.ttl = 300;
+	if(!penetrating){
+		this.penetrating = false;
+	} else {
+		this.penetrating = true;
+	}
+	if(!ttl){
+		this.ttl = 300;
+	} else {
+		this.ttl = ttl;
+	}
 	this.alive = true;
 	this.step = function() {
 		this.x += this.xv;
@@ -40,9 +48,11 @@ function Projectile(x, y, xv, yv, sprite, damage, friendly) {
 			this.alive = false;
 		}
 
-		for (var i = walls.length - 1; i >= 0; i--) {
-			if(checkAABB(this,walls[i])){
-				this.alive = false;
+		if(!this.penetrating){
+			for (var i = walls.length - 1; i >= 0; i--) {
+				if(checkAABB(this,walls[i])){
+					this.alive = false;
+				}
 			}
 		}
 
