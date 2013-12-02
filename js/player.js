@@ -265,17 +265,18 @@ function PlayerClass(x, y, maxHP, sprite) {
 	this.fire = function() {
 		this.configs[this.currentConfig].fire();
 	};
-	this.checkLevelUp = function() { //clean this up good lord
-		if(this.configs[this.currentConfig].curEXP >= this.configs[this.currentConfig].levels[this.configs[this.currentConfig].level-1].EXPtoNext && this.configs[this.currentConfig].level < this.configs[this.currentConfig].levels.length){ 
-			this.configs[this.currentConfig].level++;
-			this.configs[this.currentConfig].curEXP = 0;
-		}
-	};
 	this.setConfig = function(config) {
 		this.configs[this.currentConfig].cleanup();
 		this.currentConfig = config;
 		this.configs[this.currentConfig].init();
-	}
+	};
+	this.checkLevelUp = function() { //clean this up good lord
+		if(this.configs[this.currentConfig].curEXP >= this.configs[this.currentConfig].levels[this.configs[this.currentConfig].level-1].EXPtoNext && this.configs[this.currentConfig].level < this.configs[this.currentConfig].levels.length){ 
+			this.configs[this.currentConfig].level++;
+			this.configs[this.currentConfig].curEXP = 0;
+			this.setConfig(this.currentConfig);
+		}
+	};
 }
 
 PlayerClass.prototype = new Creature();
