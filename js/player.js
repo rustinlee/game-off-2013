@@ -67,6 +67,7 @@ function initConfigs(){
 			//will rotate player's arms once we get the proper art
 		}
 	}
+
 	fistConfig = {
 		level: 1,
 		curEXP: 0,
@@ -119,7 +120,7 @@ function initConfigs(){
 				var projectileSprite = new createjs.Sprite(kiSheet, "flying");
 				projectiles.push(new Projectile(player.x + player.width/2, player.y + player.height/2, Math.cos(angle*Math.PI/180)*this.levels[this.level-1].firePower, Math.sin(angle*Math.PI/180)*this.levels[this.level-1].firePower, projectileSprite, this.levels[this.level-1].damage, true, true, 60));
 				world.addChild(projectiles[projectiles.length-1].sprite);
-				player.sinceFired = 0;				
+				player.sinceFired = 0;
 			}
 		},
 		step: function() {
@@ -136,6 +137,76 @@ function initConfigs(){
 
 			this.container.rotation = angle;		
 		}
+	}
+
+	cannonConfig = {
+		level: 1,
+		curEXP: 0,
+		container: new createjs.Container(),
+		levels: [
+			{
+				EXPtoNext: 100,
+				damage: 3,
+				firePower: 2.5,
+				fireDelay: 30,
+				projectileSpread: 30,
+				armSprite: cannon1
+			},
+			{
+				EXPtoNext: 300,
+				damage: 4,
+				firePower: 3,
+				fireDelay: 30,
+				projectileSpread: 30,
+				armSprite: cannon2
+			},
+			{
+				EXPtoNext: 500,
+				damage: 5,
+				firePower: 3.5,
+				fireDelay: 30,
+				projectileSpread: 30,
+				armSprite: cannon3
+			}
+		],
+		init: function() {
+			this.container.x = 9;
+			this.container.y = 19;
+			this.container.addChild(this.levels[this.level].armSprite);
+			player.sprite.addChild(this.container);
+		},
+		fire: function() {
+			if(player.sinceFired >= this.levels[this.level-1].fireDelay){
+				var radx = (currentMousePos.x - world.x) - (player.x+player.width/2);
+				var rady = ((currentMousePos.y - world.y) - (player.y+player.height/2))*-1;
+				var angle = Math.atan(rady/radx)/(Math.PI/180);
+				if (radx <0) {
+					angle += 180;
+				}
+				angle = angle*-1;
+				var projectileSprite = new createjs.Sprite(walkerProjectileSheet, "flying"); //placeholder
+				projectiles.push(new Projectile(player.x + player.width/2, player.y + player.height/2, Math.cos(angle*Math.PI/180)*this.levels[this.level-1].firePower, Math.sin(angle*Math.PI/180)*this.levels[this.level-1].firePower, projectileSprite, this.levels[this.level-1].damage, true, true, 60));
+				world.addChild(projectiles[projectiles.length-1].sprite);
+				player.sinceFired = 0;
+			}
+		},		
+		cleanup: function() {
+			player.sprite.removeChild(this.container);
+		},		
+		step: function() {
+			var radx = (currentMousePos.x - world.x) - (player.x+player.width/2);
+			var rady = ((currentMousePos.y - world.y) - (player.y+player.height/2));
+			var angle = Math.atan(rady/radx)/(Math.PI/180);
+			if (radx <0) {
+				angle += 180;
+			}
+
+			if(player.sprite.scaleX == -1){
+				angle = -(angle)+180;
+			}
+
+			this.container.rotation = angle;		
+		}		
 	}
 }
 
@@ -178,7 +249,8 @@ function PlayerClass(x, y, maxHP, sprite) {
 	this.currentConfig = 1;
 	this.configs = {
 		1: throwingWeaponConfig,
-		2: fistConfig
+		2: fistConfig,
+		3: cannonConfig
 	}
 	this.die = function() {
 		this.x = this.checkpointX;

@@ -101,6 +101,13 @@ function handleComplete() {
 		animations: {flying:[0,4,true,0.08]}
 	});
 
+	cannon1 = new createjs.Bitmap(queue.getResult("cannon1"));
+	cannon1.regY = 3;
+	cannon2 = new createjs.Bitmap(queue.getResult("cannon2"));
+	cannon2.regY = 3;
+	cannon3 = new createjs.Bitmap(queue.getResult("cannon3"));
+	cannon3.regY = 3;
+
 	defaultProjectile = new createjs.SpriteSheet({images:[queue.getResult("defaultProjectile")],frames:{width:8,height:8,regY:4}})
 
 	turretSheet = new createjs.SpriteSheet({images:[queue.getResult("turretSprite")],frames:[[0,0,20,14,0,10,11],[20,0,4,17,0,2,17]]});
