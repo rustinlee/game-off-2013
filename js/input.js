@@ -24,6 +24,14 @@ $(function() {
   });
 });
 
+$(document).bind("keydown", "ctrl", function(evt){
+	if(player.currentConfig == 3){
+		player.setConfig(1);
+	} else {
+		player.setConfig(player.currentConfig+1);
+	}
+});
+
 function handleKeys() {
 	// player controls
 	if (keydown.a) {
