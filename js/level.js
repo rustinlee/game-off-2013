@@ -56,6 +56,7 @@ function initLevel(data) {
 	}
 
 	player = new PlayerClass(data.startPosition.x, data.startPosition.y, 100, playerSprite);
+	player.setConfig(1);
 
 	player.checkpointX = player.x = data.startPosition.x;
 	player.checkpointY = player.y = data.startPosition.y;

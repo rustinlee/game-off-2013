@@ -248,9 +248,9 @@ function PlayerClass(x, y, maxHP, sprite) {
 
 	this.currentConfig = 1;
 	this.configs = {
-		1: throwingWeaponConfig,
-		2: fistConfig,
-		3: cannonConfig
+		1: cannonConfig,
+		2: throwingWeaponConfig,
+		3: fistConfig
 	}
 	this.die = function() {
 		this.x = this.checkpointX;
